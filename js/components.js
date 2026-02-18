@@ -20,10 +20,10 @@ window.Navbar = () => {
     return `
     <nav class="bg-white shadow-sm sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center py-4">
+            <div class="flex justify-between items-center py-0">
                 <div class="flex items-center">
                     <a href="index.html" class="flex-shrink-0 flex items-center">
-                        <img src="public/images/logo.png" alt="Elite Estates" class="h-16 md:h-20 w-auto">
+                        <img src="public/images/logo.png" alt="Elite Estates" class="h-24 md:h-28 w-auto">
                     </a>
                 </div>
                 <div class="hidden sm:ml-6 sm:flex sm:items-center space-x-8">
