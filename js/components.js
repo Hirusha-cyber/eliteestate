@@ -192,6 +192,12 @@ window.PropertyCard = (property) => {
                         </div>
                         <span class="text-xs text-gray-400">sqft</span>
                     </div>
+                    ${property.perches ? `
+                        <div class="col-span-3 mt-3 pt-3 border-t border-gray-50 flex items-center justify-center text-gray-500 text-xs italic">
+                            <i data-lucide="map" class="w-3.5 h-3.5 mr-2 text-primary"></i>
+                            <span>Land: <span class="font-bold text-gray-700">${property.perches} Perches</span></span>
+                        </div>
+                    ` : ''}
                 `}
             </div>
 

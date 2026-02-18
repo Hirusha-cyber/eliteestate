@@ -330,17 +330,41 @@ const renderPropertyDetails = (property) => {
     const beds = document.getElementById('prop-beds');
     const baths = document.getElementById('prop-baths');
     const area = document.getElementById('prop-area');
+    const landSize = document.getElementById('prop-land');
+    const landContainer = document.getElementById('prop-land-container');
 
     if ((property.category || 'house') === 'house') {
         if (beds) beds.textContent = property.bedrooms || 0;
         if (baths) baths.textContent = property.bathrooms || 0;
         if (area) area.textContent = `${property.areaSize || 0} sqft`;
+
+        // Show land size for houses if available
+        if (landSize && property.perches) {
+            landSize.textContent = `${property.perches} Perches`;
+            if (landContainer) landContainer.classList.remove('hidden');
+        } else if (landContainer) {
+            landContainer.classList.add('hidden');
+        }
+
+        const conditionEl = document.getElementById('prop-condition');
+        const conditionCont = document.getElementById('prop-condition-container');
+        if (conditionEl && property.condition) {
+            conditionEl.textContent = property.condition;
+            if (conditionCont) conditionCont.classList.remove('hidden');
+        } else if (conditionCont) {
+            conditionCont.classList.add('hidden');
+        }
     } else {
+        // For pure land, show perches in the main area slot
         if (area) {
             const areaContainer = area.parentElement;
-            if (areaContainer.previousElementSibling) areaContainer.previousElementSibling.textContent = "Size";
+            if (areaContainer.previousElementSibling) areaContainer.previousElementSibling.textContent = "Total Area";
             area.textContent = `${property.perches || 0} Perches`;
         }
+        // Hide redundant land container and house-specific fields
+        if (landContainer) landContainer.classList.add('hidden');
+        const conditionCont = document.getElementById('prop-condition-container');
+        if (conditionCont) conditionCont.classList.add('hidden');
         if (beds) beds.parentElement.classList.add('hidden');
         if (baths) baths.parentElement.classList.add('hidden');
     }

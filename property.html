@@ -26,7 +26,9 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" type="image/png" href="public/images/ab.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="public/images/favicon.png">
 </head>
 
 <body class="bg-gray-50 text-gray-900 font-sans antialiased flex flex-col min-h-screen">
@@ -129,10 +131,17 @@
                             </div>
                         </div>
                         <div class="flex flex-col p-3 bg-gray-50 rounded-lg">
-                            <span class="text-xs text-gray-500 uppercase tracking-wide">Area</span>
+                            <span class="text-xs text-gray-500 uppercase tracking-wide">House Area</span>
                             <div class="flex items-center mt-1">
                                 <i data-lucide="ruler" class="w-4 h-4 mr-2 text-primary"></i>
                                 <span class="font-semibold text-gray-900" id="prop-area"></span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col p-3 bg-gray-50 rounded-lg" id="prop-land-container">
+                            <span class="text-xs text-gray-500 uppercase tracking-wide">Land Size</span>
+                            <div class="flex items-center mt-1">
+                                <i data-lucide="map" class="w-4 h-4 mr-2 text-primary"></i>
+                                <span class="font-semibold text-gray-900" id="prop-land"></span>
                             </div>
                         </div>
                         <div class="flex flex-col p-3 bg-gray-50 rounded-lg">
@@ -140,6 +149,13 @@
                             <div class="flex items-center mt-1">
                                 <i data-lucide="tag" class="w-4 h-4 mr-2 text-primary"></i>
                                 <span class="font-semibold text-gray-900 capitalize" id="prop-type"></span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col p-3 bg-gray-50 rounded-lg" id="prop-condition-container">
+                            <span class="text-xs text-gray-500 uppercase tracking-wide">Condition</span>
+                            <div class="flex items-center mt-1">
+                                <i data-lucide="sparkles" class="w-4 h-4 mr-2 text-primary"></i>
+                                <span class="font-semibold text-gray-900 capitalize" id="prop-condition"></span>
                             </div>
                         </div>
                     </div>
@@ -188,6 +204,4 @@
     </script>
 </body>
 
-
 </html>
-

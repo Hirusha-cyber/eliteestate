@@ -7,7 +7,9 @@
     <title>Property Manager - Elite Estates</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="icon" type="image/png" href="public/images/ab.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="public/images/favicon.png">
 </head>
 
 <body class="bg-gray-100 min-h-screen py-10 px-4">
@@ -156,7 +158,7 @@
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 bg-white">
                         </div>
                         <div class="house-only">
-                            <label class="block text-sm font-medium text-gray-700">Size (sqft)</label>
+                            <label class="block text-sm font-medium text-gray-700">House Size (sqft)</label>
                             <input type="number" id="areaSize" placeholder="e.g. 2500"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 bg-white">
                         </div>
@@ -165,8 +167,8 @@
                             <input type="number" id="floors" placeholder="e.g. 2"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 bg-white">
                         </div>
-                        <div class="land-only hidden">
-                            <label class="block text-sm font-medium text-gray-700">Perches</label>
+                        <div class="perches-field">
+                            <label class="block text-sm font-medium text-gray-700">Land Size (Perches)</label>
                             <input type="number" id="perches" placeholder="e.g. 10.5" step="0.1"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 bg-white">
                         </div>
@@ -350,6 +352,7 @@
                 data.floors = parseInt(document.getElementById('floors').value) || 1;
                 data.condition = document.getElementById('condition').value;
                 data.parking = document.getElementById('parking').checked;
+                data.perches = parseFloat(document.getElementById('perches').value) || 0;
             } else {
                 data.perches = parseFloat(document.getElementById('perches').value) || 0;
             }
@@ -385,6 +388,4 @@
     </script>
 </body>
 
-
 </html>
-
