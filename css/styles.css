@@ -1,0 +1,97 @@
+/* Custom styles to complement Tailwind CDN */
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom shadow for cards */
+.shadow-card {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.shadow-card-hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Hide scrollbar for gallery thumbnails but keep functionality */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* Dual Range Slider Styling */
+.range-slider-container {
+    position: relative;
+    height: 1.5rem;
+}
+
+@keyframes bounce-slow {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.animate-bounce-slow {
+    animation: bounce-slow 3s infinite ease-in-out;
+}
+
+input[type=range] {
+    -webkit-appearance: none;
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+    height: 0.5rem;
+    background: transparent;
+    z-index: 20;
+    top: 0.5rem;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    pointer-events: all;
+    width: 1.25rem;
+    height: 1.25rem;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    background: #3176b1;
+    border: 2px solid white;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    margin-top: -6px;
+    /* No needed if track is high enough, but good for alignment */
+    transition: transform 0.1s;
+}
+
+input[type=range]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+}
+
+/* For Firefox */
+input[type=range]::-moz-range-thumb {
+    pointer-events: all;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    background: #3176b1;
+    border: 2px solid white;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    z-index: 30;
+}
+
+.slider-track {
+    position: absolute;
+    width: 100%;
+    height: 0.5rem;
+    background-color: #e5e7eb;
+    /* gray-200 */
+    border-radius: 0.25rem;
+    top: 0.5rem;
+    z-index: 10;
+}

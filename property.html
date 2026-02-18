@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Details - Elite Estates</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3176b1',
+                        secondary: '#2b3685',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="bg-gray-50 text-gray-900 font-sans antialiased flex flex-col min-h-screen">
+
+    <!-- Navbar Container -->
+    <div id="navbar-container"></div>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+        <!-- Breadcrumb -->
+        <nav class="flex mb-8" aria-label="Breadcrumb">
+            <ol class="flex items-center space-x-2 text-sm text-gray-500">
+                <li><a href="index.html" class="hover:text-primary">Home</a></li>
+                <li><i data-lucide="chevron-right" class="h-4 w-4"></i></li>
+                <li><a href="index.html#listings" class="hover:text-primary">Properties</a></li>
+                <li><i data-lucide="chevron-right" class="h-4 w-4"></i></li>
+                <li id="breadcrumb-code" class="text-gray-900 font-medium">...</li>
+            </ol>
+        </nav>
+
+        <div id="loading-state" class="text-center py-12">
+            <i data-lucide="loader-2" class="animate-spin h-8 w-8 text-primary mx-auto"></i>
+            <p class="mt-2 text-gray-500">Loading property details...</p>
+        </div>
+
+        <div id="error-state" class="hidden text-center py-12">
+            <h3 class="text-lg font-medium text-red-600">Property not found</h3>
+            <p class="text-gray-500 mt-2">The property you are looking for does not exist or has been removed.</p>
+            <a href="index.html" class="inline-block mt-4 text-primary hover:underline">Back to Properties</a>
+        </div>
+
+        <!-- Property Content (Hidden until loaded) -->
+        <div id="property-content" class="hidden grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- Left Column: Gallery & Description -->
+            <div class="lg:col-span-2 space-y-8">
+
+                <!-- Gallery -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
+                    <div class="relative h-[400px] md:h-[500px]">
+                        <img id="main-image" src="" alt="Property" class="w-full h-full object-cover">
+                        <div class="absolute top-4 left-4">
+                            <span id="prop-status"
+                                class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white/90 capitalize shadow-sm">
+                                <!-- Status injected here -->
+                            </span>
+                        </div>
+                    </div>
+                    <!-- Thumbnails -->
+                    <div id="gallery-thumbnails" class="flex p-4 space-x-4 overflow-x-auto scrollbar-hide">
+                        <!-- Thumbnails injected here -->
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="bg-white rounded-xl shadow-sm p-6 md:p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Description</h2>
+                    <p id="prop-description" class="text-gray-600 leading-relaxed mb-6">
+                        <!-- Description injected here -->
+                    </p>
+
+                    <h3 class="text-lg font-bold text-gray-900 mb-3">Key Features</h3>
+                    <ul id="prop-features" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <!-- Features injected here -->
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Right Column: Key Info & Contact -->
+            <div class="lg:col-span-1 space-y-6">
+
+                <!-- Info Card -->
+                <div class="bg-white rounded-xl shadow-sm p-6 sticky top-24">
+                    <div class="mb-6 border-b border-gray-100 pb-6">
+                        <h1 id="prop-title" class="text-2xl font-bold text-gray-900 mb-2"></h1>
+                        <div class="flex items-center text-gray-500 mb-4">
+                            <i data-lucide="map-pin" class="w-4 h-4 mr-2"></i>
+                            <span id="prop-location"></span>
+                        </div>
+                        <div class="text-3xl font-bold text-primary" id="prop-price"></div>
+                        <div class="text-sm text-gray-400 mt-1" id="prop-code"></div>
+                    </div>
+
+                    <!-- Key Stats Grid -->
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="flex flex-col p-3 bg-gray-50 rounded-lg">
+                            <span class="text-xs text-gray-500 uppercase tracking-wide">Bedrooms</span>
+                            <div class="flex items-center mt-1">
+                                <i data-lucide="bed" class="w-4 h-4 mr-2 text-primary"></i>
+                                <span class="font-semibold text-gray-900" id="prop-beds"></span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col p-3 bg-gray-50 rounded-lg">
+                            <span class="text-xs text-gray-500 uppercase tracking-wide">Bathrooms</span>
+                            <div class="flex items-center mt-1">
+                                <i data-lucide="bath" class="w-4 h-4 mr-2 text-primary"></i>
+                                <span class="font-semibold text-gray-900" id="prop-baths"></span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col p-3 bg-gray-50 rounded-lg">
+                            <span class="text-xs text-gray-500 uppercase tracking-wide">Area</span>
+                            <div class="flex items-center mt-1">
+                                <i data-lucide="ruler" class="w-4 h-4 mr-2 text-primary"></i>
+                                <span class="font-semibold text-gray-900" id="prop-area"></span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col p-3 bg-gray-50 rounded-lg">
+                            <span class="text-xs text-gray-500 uppercase tracking-wide">Type</span>
+                            <div class="flex items-center mt-1">
+                                <i data-lucide="tag" class="w-4 h-4 mr-2 text-primary"></i>
+                                <span class="font-semibold text-gray-900 capitalize" id="prop-type"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Utilities Block (Especially for Lands) -->
+                    <div id="utilities-block" class="bg-blue-50/50 rounded-xl p-4 mb-8 hidden">
+                        <h4 class="text-xs font-bold text-blue-800 uppercase tracking-widest mb-3">Utilities &
+                            Infrastructure</h4>
+                        <div class="space-y-2">
+                            <div id="util-electricity" class="flex items-center text-sm font-medium">
+                                <i data-lucide="zap" class="w-4 h-4 mr-2 text-yellow-500"></i>
+                                <span>Electricity: <span class="text-green-600">Available</span></span>
+                            </div>
+                            <div id="util-water" class="flex items-center text-sm font-medium">
+                                <i data-lucide="droplets" class="w-4 h-4 mr-2 text-blue-500"></i>
+                                <span>Water Supply: <span class="text-green-600">Available</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Actions -->
+                    <a id="whatsapp-btn" href="#" target="_blank"
+                        class="flex items-center justify-center w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-4 rounded-xl shadow-lg transform transition-transform hover:-translate-y-0.5 mb-3">
+                        <i data-lucide="message-circle" class="w-5 h-5 mr-2"></i>
+                        Contact via WhatsApp
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer Container -->
+    <div id="footer-container"></div>
+
+    <!-- App Scripts (Strict Order, No Module) -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/properties.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', window.initPropertyDetails);
+    </script>
+</body>
+
+</html>

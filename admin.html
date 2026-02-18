@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Manager - Elite Estates</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen py-10 px-4">
+
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+        <div class="bg-slate-800 p-6 text-white flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-bold flex items-center">
+                    <i data-lucide="layout-dashboard" class="mr-3"></i>
+                    Elite Estates Manager
+                </h1>
+                <p class="text-slate-400 text-sm mt-1">Generate new property code or edit existing listings.</p>
+            </div>
+        </div>
+
+        <!-- Import Section -->
+        <div class="bg-blue-50 border-b border-blue-100 p-6">
+            <details>
+                <summary class="cursor-pointer text-blue-700 font-semibold flex items-center">
+                    <i data-lucide="upload" class="w-4 h-4 mr-2"></i>
+                    Want to edit an existing property? Click here.
+                </summary>
+                <div class="mt-4">
+                    <p class="text-sm text-slate-600 mb-2">Paste a property code block (including the braces
+                        <code>{...}</code>) below and click Load.
+                    </p>
+                    <div class="flex gap-4">
+                        <textarea id="importJson" placeholder='{"code": "P-001", "title": "..."}'
+                            class="flex-grow rounded-md border-gray-300 shadow-sm border p-2 font-mono text-xs h-20"></textarea>
+                        <button onclick="loadFromJSON()"
+                            class="bg-slate-700 hover:bg-slate-800 text-white px-6 rounded-lg font-medium transition-colors">Load
+                            Data</button>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <div class="p-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <!-- FORM -->
+            <div class="space-y-6">
+
+                <!-- Type Selection -->
+                <div class="space-y-4">
+                    <h3 class="font-semibold text-gray-900 border-b pb-2 flex items-center">
+                        <i data-lucide="layers" class="w-4 h-4 mr-2 text-slate-500"></i>
+                        Property Category
+                    </h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <label
+                            class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50 transition-colors"
+                            id="label-house">
+                            <input type="radio" name="category" value="house" checked
+                                onclick="toggleCategoryFields('house')" class="w-4 h-4 text-blue-600">
+                            <span class="ml-2 font-medium">House / Apt</span>
+                        </label>
+                        <label
+                            class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50 transition-colors"
+                            id="label-land">
+                            <input type="radio" name="category" value="land" onclick="toggleCategoryFields('land')"
+                                class="w-4 h-4 text-blue-600">
+                            <span class="ml-2 font-medium">Land</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Basic Info -->
+                <div class="space-y-4">
+                    <h3 class="font-semibold text-gray-900 border-b pb-2 flex items-center">
+                        <i data-lucide="info" class="w-4 h-4 mr-2 text-slate-500"></i>
+                        Basic Information
+                    </h3>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Property Code (ID)</label>
+                            <input type="text" id="code" placeholder="e.g. P-011"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:border-blue-500 focus:ring-blue-500 bg-white">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Price (LKR)</label>
+                            <input type="number" id="price" placeholder="45000000"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:border-blue-500 focus:ring-blue-500 bg-white">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Property Title (Name)</label>
+                        <input type="text" id="title" placeholder="e.g. Luxury Villa in Colombo"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:border-blue-500 focus:ring-blue-500 bg-white">
+                    </div>
+                </div>
+
+                <!-- Location -->
+                <div class="space-y-4">
+                    <h3 class="font-semibold text-gray-900 border-b pb-2 flex items-center">
+                        <i data-lucide="map-pin" class="w-4 h-4 mr-2 text-slate-500"></i>
+                        Location
+                    </h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">City</label>
+                            <input type="text" id="city" placeholder="Colombo 07"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:border-blue-500 focus:ring-blue-500 bg-white">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Area/Street</label>
+                            <input type="text" id="area" placeholder="Horton Place"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:border-blue-500 focus:ring-blue-500 bg-white">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Specs -->
+                <div class="space-y-4">
+                    <h3 class="font-semibold text-gray-900 border-b pb-2 flex items-center">
+                        <i data-lucide="home" class="w-4 h-4 mr-2 text-slate-500"></i>
+                        Property Specs
+                    </h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Listing Type</label>
+                            <select id="listingType"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 bg-white">
+                                <option value="sale">For Sale</option>
+                                <option value="rent">For Rent</option>
+                            </select>
+                        </div>
+                        <div class="house-only">
+                            <label class="block text-sm font-medium text-gray-700">Condition</label>
+                            <select id="condition"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 bg-white">
+                                <option value="new">Brand New</option>
+                                <option value="used">Used</option>
+                                <option value="renovated">Renovated</option>
+                            </select>
+                        </div>
+                        <div class="house-only">
+                            <label class="block text-sm font-medium text-gray-700">Bedrooms</label>
+                            <input type="number" id="bedrooms"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 bg-white">
+                        </div>
+                        <div class="house-only">
+                            <label class="block text-sm font-medium text-gray-700">Bathrooms</label>
+                            <input type="number" id="bathrooms"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 bg-white">
+                        </div>
+                        <div class="house-only">
+                            <label class="block text-sm font-medium text-gray-700">Size (sqft)</label>
+                            <input type="number" id="areaSize" placeholder="e.g. 2500"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 bg-white">
+                        </div>
+                        <div class="house-only">
+                            <label class="block text-sm font-medium text-gray-700">Number of Floors</label>
+                            <input type="number" id="floors" placeholder="e.g. 2"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 bg-white">
+                        </div>
+                        <div class="land-only hidden">
+                            <label class="block text-sm font-medium text-gray-700">Perches</label>
+                            <input type="number" id="perches" placeholder="e.g. 10.5" step="0.1"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 bg-white">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-4 pt-2">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="electricity"
+                                class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            <label for="electricity" class="ml-2 block text-sm text-gray-700 font-medium">Electricity
+                                Available</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="water"
+                                class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            <label for="water" class="ml-2 block text-sm text-gray-700 font-medium">Water Supply
+                                Available</label>
+                        </div>
+                        <div class="flex items-center house-only">
+                            <input type="checkbox" id="parking"
+                                class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            <label for="parking" class="ml-2 block text-sm text-gray-700 font-medium">Car Parking/Car
+                                Port Available</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="space-y-4">
+                    <h3 class="font-semibold text-gray-900 border-b pb-2 flex items-center">
+                        <i data-lucide="text-quote" class="w-4 h-4 mr-2 text-slate-500"></i>
+                        Description & Visuals
+                    </h3>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Description</label>
+                        <textarea id="description" rows="3" placeholder="Describe the property..."
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 bg-white"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Features (comma separated)</label>
+                        <input type="text" id="features" placeholder="Pool, Gym, Garden, AC, Elevator"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 bg-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Image Folder Name</label>
+                        <p class="text-xs text-gray-500 mb-1">Create a folder in <code>public/images/</code> with this
+                            name.</p>
+                        <input type="text" id="imageFolder" placeholder="P-011"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 bg-yellow-50">
+                    </div>
+                </div>
+
+                <button onclick="generateJSON()"
+                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-lg shadow-md transition-all transform hover:-translate-y-0.5 active:translate-y-0">
+                    Generate & Format Code
+                </button>
+
+            </div>
+
+            <!-- OUTPUT -->
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-200 flex flex-col h-full sticky top-6">
+                <h3 class="font-bold text-gray-800 mb-2 flex items-center">
+                    <i data-lucide="code-2" class="w-4 h-4 mr-2 text-blue-600"></i>
+                    Generated Code Block
+                </h3>
+                <p class="text-sm text-gray-500 mb-4 px-1">
+                    1. Create a folder in <code>public/images/</code> named the same as your ID.<br>
+                    2. Add images named <code>1.jpg</code>, <code>2.jpg</code> etc. inside it.<br>
+                    3. Copy the code below.<br>
+                    4. Paste it inside the <code>window.ALL_PROPERTIES = [ ... ]</code> list in
+                    <code>js/properties.js</code>.
+                </p>
+
+                <textarea id="output" readonly
+                    class="font-mono text-xs bg-slate-900 text-green-400 p-4 rounded-lg flex-grow w-full resize-none mb-4 focus:outline-none shadow-inner"></textarea>
+
+                <button onclick="copyToClipboard()" id="copyBtn"
+                    class="flex items-center justify-center w-full bg-white hover:bg-gray-50 text-gray-700 font-semibold py-3 rounded-lg border border-gray-300 shadow-sm transition-all">
+                    <i data-lucide="copy" class="w-4 h-4 mr-2"></i>
+                    Copy to Clipboard
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function toggleCategoryFields(category) {
+            const houseEls = document.querySelectorAll('.house-only');
+            const landEls = document.querySelectorAll('.land-only');
+
+            if (category === 'house') {
+                houseEls.forEach(el => el.classList.remove('hidden'));
+                landEls.forEach(el => el.classList.add('hidden'));
+            } else {
+                houseEls.forEach(el => el.classList.add('hidden'));
+                landEls.forEach(el => el.classList.remove('hidden'));
+            }
+        }
+
+        function loadFromJSON() {
+            try {
+                const input = document.getElementById('importJson').value.trim();
+                if (!input) return;
+
+                // Handle leading/trailing commas if user copied poorly
+                const cleanInput = input.replace(/^[,\s]+/, '').replace(/[,\s]+$/, '');
+                const data = JSON.parse(cleanInput);
+
+                // Set category radio
+                const category = data.category || (data.perches ? 'land' : 'house');
+                document.querySelector(`input[name="category"][value="${category}"]`).checked = true;
+                toggleCategoryFields(category);
+
+                document.getElementById('code').value = data.code || "";
+                document.getElementById('title').value = data.title || "";
+                document.getElementById('price').value = data.price || "";
+                document.getElementById('city').value = data.location?.city || "";
+                document.getElementById('area').value = data.location?.area || "";
+
+                document.getElementById('bedrooms').value = data.bedrooms || "";
+                document.getElementById('bathrooms').value = data.bathrooms || "";
+                document.getElementById('areaSize').value = data.areaSize || "";
+                document.getElementById('floors').value = data.floors || "1";
+                document.getElementById('perches').value = data.perches || "";
+
+                document.getElementById('listingType').value = data.listingType || "sale";
+                document.getElementById('condition').value = data.condition || "used";
+                document.getElementById('description').value = data.description || "";
+                document.getElementById('features').value = (data.features || []).join(', ');
+
+                document.getElementById('electricity').checked = !!data.electricity;
+                document.getElementById('water').checked = !!data.water;
+                document.getElementById('parking').checked = !!data.parking;
+
+                // Try to infer folder from first image
+                if (data.images && data.images.length > 0) {
+                    const parts = data.images[0].split('/');
+                    if (parts.length > 2) {
+                        document.getElementById('imageFolder').value = parts[2];
+                    }
+                }
+
+                alert("Property data loaded successfully! You can now edit the fields.");
+            } catch (e) {
+                alert("Error: Invalid code block. Make sure you copied everything from { to } correctly.");
+                console.error(e);
+            }
+        }
+
+        function generateJSON() {
+            const category = document.querySelector('input[name="category"]:checked').value;
+
+            const data = {
+                category: category,
+                code: document.getElementById('code').value || "P-XXX",
+                title: document.getElementById('title').value || "Untitled Property",
+                price: parseInt(document.getElementById('price').value) || 0,
+                currency: "LKR",
+                location: {
+                    city: document.getElementById('city').value || "Unknown",
+                    area: document.getElementById('area').value || "Unknown",
+                    district: "Colombo"
+                },
+                listingType: document.getElementById('listingType').value,
+                status: "available",
+                description: document.getElementById('description').value || "No description provided.",
+                features: document.getElementById('features').value.split(',').map(f => f.trim()).filter(f => f),
+                electricity: document.getElementById('electricity').checked,
+                water: document.getElementById('water').checked,
+                images: [],
+                featured: false
+            };
+
+            if (category === 'house') {
+                data.bedrooms = parseInt(document.getElementById('bedrooms').value) || 0;
+                data.bathrooms = parseInt(document.getElementById('bathrooms').value) || 0;
+                data.areaSize = parseInt(document.getElementById('areaSize').value) || 0;
+                data.areaUnit = "sqft";
+                data.floors = parseInt(document.getElementById('floors').value) || 1;
+                data.condition = document.getElementById('condition').value;
+                data.parking = document.getElementById('parking').checked;
+            } else {
+                data.perches = parseFloat(document.getElementById('perches').value) || 0;
+            }
+
+            const folder = document.getElementById('imageFolder').value || data.code;
+            data.images = [
+                `public/images/${folder}/1.jpg`,
+                `public/images/${folder}/2.jpg`,
+                `public/images/${folder}/3.jpg`
+            ];
+
+            const jsonString = JSON.stringify(data, null, 4);
+            const outputText = `    ,\n${jsonString}`;
+
+            document.getElementById('output').value = outputText;
+        }
+
+        function copyToClipboard() {
+            const copyText = document.getElementById("output");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(copyText.value);
+
+            const btn = document.getElementById('copyBtn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="text-green-600 font-bold flex items-center justify-center"><i data-lucide="check" class="w-4 h-4 mr-2"></i> Copied!</span>';
+            lucide.createIcons();
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                lucide.createIcons();
+            }, 2000);
+        }
+    </script>
+</body>
+
+</html>
