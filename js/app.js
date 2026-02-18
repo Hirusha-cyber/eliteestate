@@ -235,6 +235,10 @@ const setupFilters = () => {
             }
         });
 
+        // Default sort: available -> reserved -> sold
+        const statusOrder = { 'available': 1, 'reserved': 2, 'sold': 3 };
+        filteredProperties.sort((a, b) => (statusOrder[a.status] || 99) - (statusOrder[b.status] || 99));
+
         renderListings();
     };
 
