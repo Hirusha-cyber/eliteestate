@@ -307,20 +307,20 @@ window.ALL_PROPERTIES = [
     "electricity": true,
     "water": true,
    "images": [
-        "public/images/P-XXX/Athurugiriya House front 1.jpg",
-        "public/images/P-XXX/Athurugiriya House front 2.jpg",
-        "public/images/P-XXX/Athurugiriya House side view.jpg",
-        "public/images/P-XXX/Athurugiriya House livingroom 1.jpg",
-        "public/images/P-XXX/Athurugiriya House livingroom 2.jpg",
-        "public/images/P-XXX/Athurugiriya House livingroom 3.jpg",
-        "public/images/P-XXX/Athurugiriya House dining area 1.jpg",
-        "public/images/P-XXX/Athurugiriya House bedroom 1.jpg",
-        "public/images/P-XXX/Athurugiriya House back area.jpg",
-        "public/images/P-XXX/Athurugiriya House back area 2.jpg",
-        "public/images/P-XXX/Athurugiriya House back area 3.jpg",
-        "public/images/P-XXX/Athurugiriya House kitchen.jpg",
-        "public/images/P-XXX/Athurugiriya House kitchen.jpg",
-        "public/images/P-XXX/Athurugiriya House bathroom.jpg"
+        "public/images/P-003/Athurugiriya House front 1.webp",
+        "public/images/P-003/Athurugiriya House front 2.webp",
+        "public/images/P-003/Athurugiriya House side view.webp",
+        "public/images/P-003/Athurugiriya House livingroom 1.webp",
+        "public/images/P-003/Athurugiriya House livingroom 2.webp",
+        "public/images/P-003/Athurugiriya House livingroom 3.webp",
+        "public/images/P-003/Athurugiriya House dining area 1.webp",
+        "public/images/P-003/Athurugiriya House bedroom 1.webp",
+        "public/images/P-003/Athurugiriya House back area.webp",
+        "public/images/P-003/Athurugiriya House back area 2.webp",
+        "public/images/P-003/Athurugiriya House back area 3.webp",
+        "public/images/P-003/Athurugiriya House kitchen.webp",
+        "public/images/P-003/Athurugiriya House kitchen.webp",
+        "public/images/P-003/Athurugiriya House bathroom.webp"
     ],
     "featured": false,
     "bedrooms": 3,
@@ -333,5 +333,6 @@ window.ALL_PROPERTIES = [
     "perches": 10
 }
 ];
+
 
 
