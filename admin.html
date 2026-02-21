@@ -231,8 +231,7 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Image Names (One per line)</label>
-                        <p class="text-xs text-gray-500 mb-1">e.g. 1&#10;2&#10;front. (Image <b>1</b> will always be
-                            first/cover)</p>
+                        <p class="text-xs text-gray-500 mb-1">e.g. 1&#10;2&#10;front. (The <b>first</b> image listed will be the cover image)</p>
                         <textarea id="imageNames" rows="4" placeholder="1&#10;2&#10;3"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 bg-white"></textarea>
                     </div>
@@ -401,12 +400,6 @@
 
             let names = namesInput.split('\n').map(n => n.trim()).filter(n => n);
 
-            // Ensure '1' is first if it exists (for cover image)
-            if (names.includes('1')) {
-                names = ['1', ...names.filter(n => n !== '1')];
-                // Update the input field to reflect the sorted order
-                document.getElementById('imageNames').value = names.join('\n');
-            }
 
             data.images = names.map(name => `public/images/${folder}/${name}${ext}`);
 
