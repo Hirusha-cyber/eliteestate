@@ -307,20 +307,20 @@ window.ALL_PROPERTIES = [
     "electricity": true,
     "water": true,
    "images": [
-        "public/images/P-003/Athurugiriya House front 1.webp",
-        "public/images/P-003/Athurugiriya House front 2.webp",
-        "public/images/P-003/Athurugiriya House side view.webp",
-        "public/images/P-003/Athurugiriya House livingroom 1.webp",
-        "public/images/P-003/Athurugiriya House livingroom 2.webp",
-        "public/images/P-003/Athurugiriya House livingroom 3.webp",
-        "public/images/P-003/Athurugiriya House dining area 1.webp",
-        "public/images/P-003/Athurugiriya House bedroom 1.webp",
-        "public/images/P-003/Athurugiriya House back area.webp",
-        "public/images/P-003/Athurugiriya House back area 2.webp",
-        "public/images/P-003/Athurugiriya House back area 3.webp",
-        "public/images/P-003/Athurugiriya House kitchen.webp",
-        "public/images/P-003/Athurugiriya House kitchen.webp",
-        "public/images/P-003/Athurugiriya House bathroom.webp"
+        "public/images/EP-003/Athurugiriya House front 1.webp",
+        "public/images/EP-003/Athurugiriya House front 2.webp",
+        "public/images/EP-003/Athurugiriya House side view.webp",
+        "public/images/EP-003/Athurugiriya House livingroom 1.webp",
+        "public/images/EP-003/Athurugiriya House livingroom 2.webp",
+        "public/images/EP-003/Athurugiriya House livingroom 3.webp",
+        "public/images/EP-003/Athurugiriya House dining area 1.webp",
+        "public/images/EP-003/Athurugiriya House bedroom 1.webp",
+        "public/images/EP-003/Athurugiriya House back area.webp",
+        "public/images/EP-003/Athurugiriya House back area 2.webp",
+        "public/images/EP-003/Athurugiriya House back area 3.webp",
+        "public/images/EP-003/Athurugiriya House kitchen.webp",
+        "public/images/EP-003/Athurugiriya House kitchen.webp",
+        "public/images/EP-003/Athurugiriya House bathroom.webp"
     ],
     "featured": false,
     "bedrooms": 3,
@@ -333,6 +333,7 @@ window.ALL_PROPERTIES = [
     "perches": 10
 }
 ];
+
 
 
 
