@@ -1,5 +1,3 @@
-// No imports needed, we assume globals
-
 window.Navbar = () => {
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
 
@@ -18,12 +16,12 @@ window.Navbar = () => {
     };
 
     return `
-    <nav class="bg-white shadow-sm sticky top-0 z-50">
+    <nav class="glass-panel sticky top-4 mx-4 mt-4 rounded-2xl z-50 mb-4 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-0">
                 <div class="flex items-center">
                     <a href="index.html" class="flex-shrink-0 flex items-center">
-                        <img src="public/images/logo.png" alt="Elite Estates" class="h-24 md:h-28 w-auto">
+                        <img src="public/images/logo.png" alt="Elite Estates" class="h-16 md:h-24 w-auto">
                     </a>
                 </div>
                 <div class="hidden sm:ml-6 sm:flex sm:items-center space-x-8">
@@ -55,7 +53,8 @@ window.Navbar = () => {
 };
 
 window.Footer = () => `
-    <footer class="bg-white border-t border-gray-200 mt-12">
+    <div id="footer-cta-container"></div>
+    <footer class="glass-panel mt-16 border-t border-white/50 backdrop-blur-md bg-white/40">
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center md:items-start flex-col md:flex-row">
                  <div class="mb-8 md:mb-0">
@@ -78,8 +77,8 @@ window.Footer = () => `
                     <div>
                         <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Legal</h3>
                         <ul class="mt-4 space-y-4">
-                            <li><a href="#" class="text-base text-gray-500 hover:text-gray-900">Privacy</a></li>
-                            <li><a href="#" class="text-base text-gray-500 hover:text-gray-900">Terms</a></li>
+                            <li><a href="privacy.html" class="text-base text-gray-500 hover:text-gray-900">Privacy</a></li>
+                            <li><a href="terms.html" class="text-base text-gray-500 hover:text-gray-900">Terms</a></li>
                         </ul>
                     </div>
                 </div>
@@ -120,6 +119,26 @@ window.Footer = () => `
     </footer>
 `;
 
+window.FooterCTA = () => `
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 -mb-12 relative z-20">
+        <div class="bg-gradient-to-r from-primary to-secondary rounded-3xl p-10 md:p-16 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-10 transform transition-all duration-500 hover:scale-[1.02]">
+            <div class="text-center md:text-left">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Ready to find your dream home?</h2>
+                <p class="text-blue-100 text-lg md:text-xl max-w-xl">Our experts are ready to guide you through every step of your property journey in Sri Lanka.</p>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+                <a href="tel:+94775485445" class="flex items-center justify-center bg-white text-primary hover:bg-blue-50 px-8 py-4 rounded-2xl font-bold text-lg shadow-lg transition-all active:scale-95 group">
+                    <i data-lucide="phone" class="w-6 h-6 mr-3 transition-transform group-hover:rotate-12"></i>
+                    Call Us Now
+                </a>
+                <a href="contact.html" class="flex items-center justify-center bg-primary/20 hover:bg-primary/30 text-white border-2 border-white/30 backdrop-blur-sm px-8 py-4 rounded-2xl font-bold text-lg transition-all active:scale-95">
+                    Contact Us
+                </a>
+            </div>
+        </div>
+    </div>
+`;
+
 window.PropertyCard = (property) => {
     const isAvailable = property.status === 'available';
     const statusColor = isAvailable ? 'bg-green-100 text-green-800' :
@@ -132,7 +151,7 @@ window.PropertyCard = (property) => {
     const isLand = (property.category || 'house') === 'land';
 
     return `
-    <div class="bg-white rounded-xl shadow-card overflow-hidden hover:shadow-card-hover transition-shadow duration-300 flex flex-col h-full group">
+    <div class="glass-card rounded-2xl overflow-hidden flex flex-col h-full group relative">
         <div class="relative h-64 overflow-hidden">
             <img src="${mainImage}" alt="${property.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <div class="absolute top-4 left-4">
@@ -141,6 +160,9 @@ window.PropertyCard = (property) => {
                 </span>
             </div>
             <div class="absolute top-4 right-4 flex space-x-2">
+                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/90 text-gray-800 capitalize shadow-sm backdrop-blur-sm">
+                    ${property.category || 'House'}
+                </span>
                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/90 text-gray-800 capitalize shadow-sm backdrop-blur-sm">
                     ${property.listingType}
                 </span>
@@ -210,3 +232,30 @@ window.PropertyCard = (property) => {
     </div>
 `;
 };
+
+window.BlogCard = (post) => `
+    <article class="glass-card rounded-2xl overflow-hidden hover:shadow-card-hover transition-all duration-300 group cursor-pointer" onclick="window.location.href='blog-post.html?id=${post.id}'">
+        <div class="relative h-56 overflow-hidden">
+            <img src="${post.image}" alt="${post.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute top-4 left-4">
+                <span class="px-3 py-1 bg-white/90 backdrop-blur-sm text-primary text-xs font-bold rounded-full shadow-sm">${post.category}</span>
+            </div>
+        </div>
+
+        <div class="p-8">
+            <div class="flex items-center text-gray-400 text-xs mb-3">
+                <i data-lucide="calendar" class="w-3 h-3 mr-1"></i>
+                <span>${post.date}</span>
+                <span class="mx-2">•</span>
+                <i data-lucide="clock" class="w-3 h-3 mr-1"></i>
+                <span>${post.readTime}</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
+                <a href="blog-post.html?id=${post.id}">${post.title}</a>
+            </h3>
+            <p class="text-gray-600 text-sm leading-relaxed">
+                ${post.excerpt}
+            </p>
+        </div>
+    </article>
+`;

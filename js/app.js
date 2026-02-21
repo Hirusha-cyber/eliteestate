@@ -1,18 +1,22 @@
-// State
-let filteredProperties = [];
-let currentCategory = 'house';
 
 // Universal Page Initializer
 const initCommonLayout = () => {
     try {
         const navContainer = document.getElementById('navbar-container');
         const footContainer = document.getElementById('footer-container');
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
 
         if (navContainer && typeof window.Navbar === 'function') {
             navContainer.innerHTML = window.Navbar();
         }
         if (footContainer && typeof window.Footer === 'function') {
             footContainer.innerHTML = window.Footer();
+
+            // Initialize Footer CTA (Skip on contact page)
+            const ctaContainer = document.getElementById('footer-cta-container');
+            if (ctaContainer && typeof window.FooterCTA === 'function' && currentPage !== 'contact.html') {
+                ctaContainer.innerHTML = window.FooterCTA();
+            }
         }
 
         // Initialize icons
@@ -35,25 +39,125 @@ const initCommonLayout = () => {
         // Floating Call Button
         setupFloatingCall();
 
+        // Glassify Selects
+        initCustomSelects();
+
     } catch (error) {
         console.error("Layout initialization failed:", error);
     }
 };
 
 const setupFloatingCall = () => {
-    if (document.getElementById('floating-call-btn')) return;
-    const callBtn = document.createElement('a');
-    callBtn.id = 'floating-call-btn';
-    callBtn.href = `tel:+94775485445`;
-    callBtn.className = "fixed bottom-8 right-8 z-[100] bg-primary text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center animate-bounce-slow";
-    callBtn.innerHTML = `<i data-lucide="phone" class="w-6 h-6"></i>`;
-    document.body.appendChild(callBtn);
-    if (window.lucide) window.lucide.createIcons();
+    let callBtn = document.getElementById('floating-call-btn');
+    if (!callBtn) {
+        callBtn = document.createElement('a');
+        callBtn.id = 'floating-call-btn';
+        callBtn.href = `tel:+94775485445`;
+        callBtn.className = "fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[100] bg-primary text-white p-3.5 md:p-4 rounded-full shadow-2xl hover:scale-110 transition-all duration-500 flex items-center justify-center animate-bounce-slow opacity-100 transform translate-y-0";
+        callBtn.innerHTML = `<i data-lucide="phone" class="w-6 h-6"></i>`;
+        document.body.appendChild(callBtn);
+        if (window.lucide) window.lucide.createIcons();
+    }
+
+    // Scroll Logic to Replace Floating Button with Footer CTA
+    window.addEventListener('scroll', () => {
+        const ctaContainer = document.getElementById('footer-cta-container');
+        if (!ctaContainer) return;
+
+        const rect = ctaContainer.getBoundingClientRect();
+        const triggerPoint = window.innerHeight - 100; // Switch when CTA is near bottom of viewport
+
+        if (rect.top < triggerPoint) {
+            // Hide floating button when CTA is visible
+            callBtn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-10');
+            callBtn.classList.remove('opacity-100', 'translate-y-0');
+        } else {
+            // Show floating button when scrolling up
+            callBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-10');
+            callBtn.classList.add('opacity-100', 'translate-y-0');
+        }
+    });
 };
 
 // Global Page Init (Used by Page-specific inits)
 window.initPage = () => {
     initCommonLayout();
+};
+
+const initCustomSelects = () => {
+    const selects = document.querySelectorAll('select.glass-input');
+
+    selects.forEach(select => {
+        if (select.parentElement.classList.contains('custom-select-container')) return;
+
+        // Hide native select
+        select.style.display = 'none';
+
+        // Create wrapper
+        const wrapper = document.createElement('div');
+        wrapper.className = 'custom-select-container';
+        select.parentNode.insertBefore(wrapper, select);
+        wrapper.appendChild(select);
+
+        // Create trigger
+        const trigger = document.createElement('div');
+        trigger.className = 'glass-input custom-select-trigger';
+        const selectedOption = select.options[select.selectedIndex];
+        trigger.innerHTML = `
+            <span>${selectedOption ? selectedOption.text : ''}</span>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400"></i>
+        `;
+        wrapper.appendChild(trigger);
+
+        // Create options container
+        const optionsList = document.createElement('div');
+        optionsList.className = 'custom-options';
+
+        // Add options
+        Array.from(select.options).forEach((option, index) => {
+            const optDiv = document.createElement('div');
+            optDiv.className = `custom-option ${index === select.selectedIndex ? 'selected' : ''}`;
+            optDiv.textContent = option.text;
+            optDiv.dataset.value = option.value;
+
+            optDiv.addEventListener('click', (e) => {
+                e.stopPropagation();
+                select.value = option.value;
+                trigger.querySelector('span').textContent = option.text;
+
+                // Sync UI
+                optionsList.querySelectorAll('.custom-option').forEach(el => el.classList.remove('selected'));
+                optDiv.classList.add('selected');
+
+                optionsList.classList.remove('show');
+
+                // Trigger change event for filtering
+                select.dispatchEvent(new Event('change'));
+                select.dispatchEvent(new Event('input'));
+            });
+
+            optionsList.appendChild(optDiv);
+        });
+
+        wrapper.appendChild(optionsList);
+
+        // Toggle logic
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            // Close other open selects
+            document.querySelectorAll('.custom-options.show').forEach(el => {
+                if (el !== optionsList) el.classList.remove('show');
+            });
+            optionsList.classList.toggle('show');
+        });
+
+        // Close on click outside
+        document.addEventListener('click', () => {
+            optionsList.classList.remove('show');
+        });
+    });
+
+    if (window.lucide) window.lucide.createIcons();
 };
 
 // --- HOME PAGE LOGIC ---
@@ -73,6 +177,54 @@ window.initHome = async () => {
 
 window.initBlog = () => {
     window.initPage();
+
+    const blogContainer = document.getElementById('blog-posts-grid');
+    if (blogContainer && window.BLOG_POSTS) {
+        blogContainer.innerHTML = window.BLOG_POSTS.map(post => window.BlogCard(post)).join('');
+        if (window.lucide) window.lucide.createIcons();
+    }
+};
+
+window.initBlogPost = () => {
+    window.initPage();
+
+    // Get post ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const postId = urlParams.get('id');
+
+    if (!postId || !window.BLOG_POSTS) {
+        window.location.href = 'blog.html';
+        return;
+    }
+
+    const post = window.BLOG_POSTS.find(p => p.id === postId);
+
+    if (!post) {
+        window.location.href = 'blog.html';
+        return;
+    }
+
+    // Populate page content
+    document.title = `${post.title} - Elite Estates`;
+    const titleEl = document.getElementById('post-title');
+    const breadcrumbTitleEl = document.getElementById('breadcrumb-title');
+    const dateEl = document.getElementById('post-date');
+    const readTimeEl = document.getElementById('post-read-time');
+    const categoryEl = document.getElementById('post-category');
+    const imageEl = document.getElementById('post-image');
+    const contentEl = document.getElementById('post-content');
+
+    if (titleEl) titleEl.textContent = post.title;
+    if (breadcrumbTitleEl) breadcrumbTitleEl.textContent = post.title;
+    if (dateEl) dateEl.textContent = post.date;
+    if (readTimeEl) readTimeEl.textContent = post.readTime;
+    if (categoryEl) categoryEl.textContent = post.category;
+    if (imageEl) imageEl.src = post.image;
+    if (contentEl) {
+        contentEl.innerHTML = post.content;
+    }
+
+    if (window.lucide) window.lucide.createIcons();
 };
 
 window.switchCategory = (category) => {
@@ -148,6 +300,81 @@ const setupFilters = () => {
         });
     }
 
+    // Sticky Header Logic
+    const stickyHeader = document.getElementById('sticky-search-header');
+    const heroSection = document.querySelector('.relative.overflow-hidden.pb-32');
+
+    // Switcher Logic
+    const switcherBtn = document.getElementById('header-switcher-btn');
+    const stickySearchContainer = document.getElementById('sticky-search-container');
+    const stickyNavContainer = document.getElementById('sticky-nav-container');
+    let isSearchMode = true;
+
+    if (switcherBtn && stickySearchContainer && stickyNavContainer) {
+        switcherBtn.addEventListener('click', () => {
+            isSearchMode = !isSearchMode;
+            updateStickyHeaderState();
+        });
+    }
+
+    function updateStickyHeaderState() {
+        if (!stickySearchContainer || !stickyNavContainer || !switcherBtn) return;
+
+        if (isSearchMode) {
+            stickySearchContainer.classList.remove('hidden');
+            stickyNavContainer.classList.add('hidden');
+            stickyNavContainer.classList.remove('flex'); // consistent display handling
+
+            switcherBtn.innerHTML = '<i data-lucide="align-justify" class="w-5 h-5"></i>'; // Menu Icon to switch to nav
+        } else {
+            stickySearchContainer.classList.add('hidden');
+            stickyNavContainer.classList.remove('hidden');
+            stickyNavContainer.classList.add('flex'); // Ensure flex flow
+
+            switcherBtn.innerHTML = '<i data-lucide="search" class="w-5 h-5"></i>'; // Search Icon to switch back
+        }
+        if (window.lucide) window.lucide.createIcons();
+    }
+
+    // Scroll Trigger Logic
+    if (stickyHeader) {
+        window.addEventListener('scroll', () => {
+            // Threshold for showing sticky header (navbar height approx)
+            const navHeight = 100;
+            const mainSearch = document.getElementById('main-search-input');
+            const searchRect = mainSearch ? mainSearch.getBoundingClientRect() : { bottom: 0 };
+
+            // Show sticky header if scrolled past nav
+            if (window.scrollY > navHeight) {
+                stickyHeader.classList.remove('translate-y-[-150%]');
+                stickyHeader.classList.add('translate-y-0');
+
+                // Logic: "Until you go past the search bar, the header [Nav] should be there."
+                // "As you scroll past the search bar, the search bar should appear."
+
+                // If search bar is scrolled out of view (top < some offset), switch to Search Mode.
+                // Using bottom < 80px (offset for header height) as trigger.
+                const searchVisibleOffset = 80;
+                const shouldShowSearch = searchRect.bottom < searchVisibleOffset;
+
+                // Only update if state needs changing to prevent constant re-renders/flicker
+                if (isSearchMode !== shouldShowSearch) {
+                    isSearchMode = shouldShowSearch;
+                    updateStickyHeaderState();
+                }
+            } else {
+                stickyHeader.classList.remove('translate-y-0');
+                stickyHeader.classList.add('translate-y-[-150%]');
+
+                // Reset to Nav mode when hidden, so it's ready for next scroll down
+                if (isSearchMode !== false) {
+                    isSearchMode = false;
+                    updateStickyHeaderState();
+                }
+            }
+        });
+    }
+
     // Select all inputs
     const searchInput = document.getElementById('search');
     const locationInput = document.getElementById('filter-location-input');
@@ -170,6 +397,27 @@ const setupFilters = () => {
     const maxPriceInput = document.getElementById('price-max');
     const priceDisplay = document.getElementById('price-display');
 
+    // --- Dynamic Price Range Scaling ---
+    let absoluteMaxPrice = 100000000; // default fallback
+    if (window.ALL_PROPERTIES && window.ALL_PROPERTIES.length > 0) {
+        const prices = window.ALL_PROPERTIES.map(p => p.price);
+        absoluteMaxPrice = Math.max(...prices);
+
+        // Polished ceiling: Round up to nearest 500k or 1M for a cleaner UI
+        const roundingFactor = absoluteMaxPrice > 10000000 ? 1000000 : 500000;
+        absoluteMaxPrice = Math.ceil(absoluteMaxPrice / roundingFactor) * roundingFactor;
+    }
+
+    if (minPriceInput && maxPriceInput) {
+        minPriceInput.max = absoluteMaxPrice;
+        maxPriceInput.max = absoluteMaxPrice;
+        maxPriceInput.value = absoluteMaxPrice;
+        // Adjust step for smoother sliding vs precision
+        const step = absoluteMaxPrice > 50000000 ? 500000 : (absoluteMaxPrice > 10000000 ? 100000 : 50000);
+        minPriceInput.step = step;
+        maxPriceInput.step = step;
+    }
+
     const resetBtn = document.getElementById('reset-filters');
 
     const updatePriceDisplay = () => {
@@ -181,30 +429,65 @@ const setupFilters = () => {
         priceDisplay.textContent = `${window.formatCurrency(realMin)} - ${window.formatCurrency(realMax)}`;
     };
 
-    window.applyFilters = () => {
-        if (!searchInput) return; // Guard
+    window.applyFilters = (shouldScroll = false) => {
+        const searchInput = document.getElementById('search');
+        const mainSearchInput = document.getElementById('main-search-input');
 
-        const query = searchInput.value.toLowerCase();
+        let query = (mainSearchInput ? mainSearchInput.value : (searchInput ? searchInput.value : '')).toLowerCase().trim();
+        const keywords = query ? query.split(/[\s,]+/).filter(k => k.length > 0) : [];
+        const hasSearch = keywords.length > 0;
+
         const location = locationInput ? locationInput.value : '';
         const type = typeSelect ? typeSelect.value : 'any';
 
         let minPrice = minPriceInput ? parseInt(minPriceInput.value) : 0;
-        let maxPrice = maxPriceInput ? parseInt(maxPriceInput.value) : 200000000;
+        let maxPrice = maxPriceInput ? parseInt(maxPriceInput.value) : absoluteMaxPrice;
         if (minPrice > maxPrice) [minPrice, maxPrice] = [maxPrice, minPrice];
 
         filteredProperties = window.ALL_PROPERTIES.filter(p => {
-            // Category Match
+            // Category Match: STRICT. Search filters within the current category.
             const matchesCategory = (p.category || 'house') === currentCategory;
             if (!matchesCategory) return false;
 
-            // Search & Basic
-            const matchesSearch = p.title.toLowerCase().includes(query) ||
-                p.location.city.toLowerCase().includes(query) ||
-                p.location.area.toLowerCase().includes(query);
+            // Search Logic
+            let searchScore = 0;
+            let distinctKeywordsMatched = 0;
+            let isExactMatch = false;
+
+            if (hasSearch) {
+                const searchFields = [
+                    (p.code || '').toLowerCase(),
+                    (p.title || '').toLowerCase(),
+                    (p.description || '').toLowerCase(),
+                    (p.location.city || '').toLowerCase(),
+                    (p.location.area || '').toLowerCase(),
+                    (p.location.district || '').toLowerCase(),
+                    ...(p.features || []).map(f => f.toLowerCase())
+                ];
+
+                // Exact match check
+                isExactMatch = searchFields.some(field => field === query || (query.length > 3 && field.includes(query)));
+
+                // Count distinct keywords matched
+                distinctKeywordsMatched = keywords.reduce((count, word) => {
+                    return count + (searchFields.some(field => field.includes(word)) ? 1 : 0);
+                }, 0);
+
+                searchScore = distinctKeywordsMatched; // Base score is distinct matches
+
+                // If keywords provided but no match, filter out
+                if (distinctKeywordsMatched === 0 && !isExactMatch) return false;
+            }
+
+            p._isExactMatch = isExactMatch;
+            p._matchesAllKeywords = distinctKeywordsMatched === keywords.length;
+            p._searchScore = searchScore;
+
             const matchesLocation = location === '' || p.location.city.toLowerCase().includes(location.toLowerCase());
             const matchesType = type === 'any' || p.listingType === type;
             const matchesPrice = p.price >= minPrice && p.price <= maxPrice;
 
+            // Property Specific Filters - Apply based on currentCategory, even if search is active
             if (currentCategory === 'house') {
                 const minBeds = (bedsSelect && bedsSelect.value !== 'any') ? parseInt(bedsSelect.value) : 0;
                 const minBaths = (bathsSelect && bathsSelect.value !== 'any') ? parseInt(bathsSelect.value) : 0;
@@ -212,15 +495,16 @@ const setupFilters = () => {
                 const condition = conditionSelect ? conditionSelect.value : 'any';
                 const parkingReq = parkingCheck ? parkingCheck.checked : false;
 
-                const matchesBeds = p.bedrooms >= minBeds;
-                const matchesBaths = p.bathrooms >= minBaths;
-                const matchesSize = p.areaSize >= minSize;
+                const matchesBeds = (p.bedrooms || 0) >= minBeds;
+                const matchesBaths = (p.bathrooms || 0) >= minBaths;
+                const matchesSize = (p.areaSize || 0) >= minSize;
                 const matchesCondition = condition === 'any' || p.condition === condition;
                 const matchesParking = !parkingReq || p.parking;
 
-                return matchesSearch && matchesLocation && matchesType && matchesPrice &&
+                // Strict filtering even during search
+                return matchesLocation && matchesType && matchesPrice &&
                     matchesBeds && matchesBaths && matchesSize && matchesCondition && matchesParking;
-            } else {
+            } else { // currentCategory === 'land'
                 // Land logic
                 const minPerches = (perchesInput && perchesInput.value) ? parseFloat(perchesInput.value) : 0;
                 const elecReq = electricityCheck ? electricityCheck.checked : false;
@@ -230,31 +514,118 @@ const setupFilters = () => {
                 const matchesElec = !elecReq || p.electricity;
                 const matchesWater = !waterReq || p.water;
 
-                return matchesSearch && matchesLocation && matchesType && matchesPrice &&
+                return matchesLocation && matchesType && matchesPrice &&
                     matchesPerches && matchesElec && matchesWater;
             }
         });
 
-        // Default sort: available -> reserved -> sold
+        // Sorting: 
+        // 1. Exact matches
+        // 2. Matches ALL keywords
+        // 3. Highest keyword matches
+        // 4. Status priority (available first)
         const statusOrder = { 'available': 1, 'reserved': 2, 'sold': 3 };
-        filteredProperties.sort((a, b) => (statusOrder[a.status] || 99) - (statusOrder[b.status] || 99));
+        filteredProperties.sort((a, b) => {
+            if (hasSearch) {
+                // Exact Match
+                if (a._isExactMatch && !b._isExactMatch) return -1;
+                if (!a._isExactMatch && b._isExactMatch) return 1;
+
+                // Match All Keywords
+                if (a._matchesAllKeywords && !b._matchesAllKeywords) return -1;
+                if (!a._matchesAllKeywords && b._matchesAllKeywords) return 1;
+
+                // Match Count
+                if (a._searchScore !== b._searchScore) {
+                    return b._searchScore - a._searchScore;
+                }
+            }
+
+            // Status Priority
+            const statusA = statusOrder[a.status] || 99;
+            const statusB = statusOrder[b.status] || 99;
+            if (statusA !== statusB) return statusA - statusB;
+
+            return 0;
+        });
 
         renderListings();
+
+        // --- Auto Scroll Logic ---
+        if (shouldScroll) {
+            const resultsSection = document.getElementById('results-section');
+            const hasQuery = (mainSearchInput?.value.trim() !== '') || (stickySearchInput?.value.trim() !== '');
+            if (resultsSection && hasQuery) {
+                setTimeout(() => {
+                    resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 150);
+            }
+        }
+
+        // --- UI Feedback: Active Tab Styles ---
+        if (tabHouse && tabLand) {
+            const activeClass = "px-6 py-2 rounded-lg text-sm font-bold transition-all bg-primary text-white shadow-md";
+            const inactiveClass = "px-6 py-2 rounded-lg text-sm font-bold transition-all text-gray-500 hover:text-gray-700";
+            tabHouse.className = currentCategory === 'house' ? activeClass : inactiveClass;
+            tabLand.className = currentCategory === 'land' ? activeClass : inactiveClass;
+        }
     };
 
     // Attach listeners
+    const mainSearchInput = document.getElementById('main-search-input');
+    const mainSearchBtn = document.getElementById('main-search-btn');
+    const stickySearchInput = document.getElementById('sticky-search-input');
+    const stickySearchBtn = document.getElementById('sticky-search-btn');
+
     const triggerInputs = [
-        searchInput, locationInput, typeSelect,
+        searchInput, mainSearchInput, stickySearchInput, locationInput, typeSelect,
         bedsSelect, bathsSelect, sizeInput, conditionSelect, parkingCheck,
         perchesInput, electricityCheck, waterCheck,
         minPriceInput, maxPriceInput
     ];
     triggerInputs.forEach(input => {
-        if (input) input.addEventListener('input', () => {
+        if (!input) return;
+        input.addEventListener('input', () => {
             if (input === minPriceInput || input === maxPriceInput) updatePriceDisplay();
+
+            // Sync search inputs
+            const val = input.value;
+            if (input === mainSearchInput || input === stickySearchInput || input === searchInput) {
+                if (searchInput && searchInput !== input) searchInput.value = val;
+                if (mainSearchInput && mainSearchInput !== input) mainSearchInput.value = val;
+                if (stickySearchInput && stickySearchInput !== input) stickySearchInput.value = val;
+            }
+
             applyFilters();
         });
     });
+
+    if (mainSearchBtn) {
+        mainSearchBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            applyFilters(true);
+        });
+    }
+
+    if (stickySearchBtn) {
+        stickySearchBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            applyFilters(true);
+        });
+    }
+
+    // Enter key support for search inputs
+    const handleEnterKey = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            applyFilters(true);
+            e.target.blur();
+        }
+    };
+
+    if (mainSearchInput) mainSearchInput.addEventListener('keydown', handleEnterKey);
+    if (stickySearchInput) stickySearchInput.addEventListener('keydown', handleEnterKey);
+    if (searchInput) searchInput.addEventListener('keydown', handleEnterKey);
 
     // Init Display
     updatePriceDisplay();
@@ -262,6 +633,7 @@ const setupFilters = () => {
     if (resetBtn) {
         resetBtn.addEventListener('click', () => {
             if (searchInput) searchInput.value = '';
+            if (mainSearchInput) mainSearchInput.value = '';
             if (locationInput) locationInput.value = '';
             if (typeSelect) typeSelect.value = 'any';
 
@@ -435,28 +807,100 @@ const renderPropertyDetails = (property) => {
     if (window.lucide) window.lucide.createIcons();
 };
 
+let currentImageIndex = 0;
+let propertyImages = [];
+
 const setupGallery = (images) => {
     if (!images || images.length === 0) return;
+    propertyImages = images;
+    currentImageIndex = 0;
+
     const mainImage = document.getElementById('main-image');
     const thumbnailsContainer = document.getElementById('gallery-thumbnails');
     if (!mainImage || !thumbnailsContainer) return;
 
     mainImage.src = images[0];
     thumbnailsContainer.innerHTML = images.map((img, index) => `
-        <button class="flex-shrink-0 w-24 h-16 rounded-lg overflow-hidden border-2 transition-colors ${index === 0 ? 'border-primary' : 'border-transparent hover:border-gray-300'}" 
-                onclick="changeMainImage('${img}', this)">
+        <button class="flex-shrink-0 w-24 h-16 rounded-lg overflow-hidden border-2 transition-colors thumbnail-btn ${index === 0 ? 'border-primary' : 'border-transparent hover:border-gray-300'}" 
+                onclick="changeMainImage(${index})">
             <img src="${img}" class="w-full h-full object-cover" alt="Thumbnail ${index + 1}">
         </button>
     `).join('');
 
-    window.changeMainImage = (src, btn) => {
-        mainImage.src = src;
-        const buttons = thumbnailsContainer.querySelectorAll('button');
-        buttons.forEach(b => {
-            b.classList.remove('border-primary');
-            b.classList.add('border-transparent');
+    // Update scroll buttons visibility
+    setTimeout(updateScrollButtons, 100);
+    thumbnailsContainer.addEventListener('scroll', updateScrollButtons);
+    window.addEventListener('resize', updateScrollButtons);
+
+    window.changeMainImage = (index) => {
+        currentImageIndex = index;
+        const src = propertyImages[currentImageIndex];
+        mainImage.style.opacity = '0.5';
+        setTimeout(() => {
+            mainImage.src = src;
+            mainImage.style.opacity = '1';
+        }, 150);
+
+        const buttons = thumbnailsContainer.querySelectorAll('.thumbnail-btn');
+        buttons.forEach((b, i) => {
+            if (i === index) {
+                b.classList.remove('border-transparent');
+                b.classList.add('border-primary');
+                // Auto-scroll thumbnail into view
+                b.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            } else {
+                b.classList.remove('border-primary');
+                b.classList.add('border-transparent');
+            }
         });
-        btn.classList.remove('border-transparent');
-        btn.classList.add('border-primary');
+    };
+
+    window.nextImage = () => {
+        let nextIndex = (currentImageIndex + 1) % propertyImages.length;
+        window.changeMainImage(nextIndex);
+    };
+
+    window.prevImage = () => {
+        let prevIndex = (currentImageIndex - 1 + propertyImages.length) % propertyImages.length;
+        window.changeMainImage(prevIndex);
+    };
+
+    window.scrollThumbnails = (direction) => {
+        const scrollAmount = 300;
+        if (direction === 'left') {
+            thumbnailsContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        } else {
+            thumbnailsContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
     };
 };
+
+function updateScrollButtons() {
+    const container = document.getElementById('gallery-thumbnails');
+    const leftBtn = document.getElementById('scroll-left-btn');
+    const rightBtn = document.getElementById('scroll-right-btn');
+
+    if (!container || !leftBtn || !rightBtn) return;
+
+    const hasScroll = container.scrollWidth > container.clientWidth;
+
+    if (!hasScroll) {
+        leftBtn.classList.add('opacity-0', 'pointer-events-none');
+        rightBtn.classList.add('opacity-0', 'pointer-events-none');
+        return;
+    }
+
+    // Show left button if not at start
+    if (container.scrollLeft > 10) {
+        leftBtn.classList.remove('opacity-0', 'pointer-events-none');
+    } else {
+        leftBtn.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    // Show right button if not at end
+    if (container.scrollLeft + container.clientWidth < container.scrollWidth - 10) {
+        rightBtn.classList.remove('opacity-0', 'pointer-events-none');
+    } else {
+        rightBtn.classList.add('opacity-0', 'pointer-events-none');
+    }
+}

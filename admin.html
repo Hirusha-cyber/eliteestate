@@ -208,16 +208,33 @@
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 bg-white"></textarea>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Features (comma separated)</label>
-                        <input type="text" id="features" placeholder="Pool, Gym, Garden, AC, Elevator"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 bg-white">
+                        <label class="block text-sm font-medium text-gray-700">Features (One per line)</label>
+                        <textarea id="features" rows="4" placeholder="Pool&#10;Gym&#10;Garden"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 bg-white"></textarea>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Image Folder Name</label>
+                            <input type="text" id="imageFolder" placeholder="P-011"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 bg-yellow-50">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Extension</label>
+                            <select id="imageExt"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 bg-white">
+                                <option value=".jpg">.jpg</option>
+                                <option value=".jpeg">.jpeg</option>
+                                <option value=".png">.png</option>
+                                <option value=".webp">.webp</option>
+                            </select>
+                        </div>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Image Folder Name</label>
-                        <p class="text-xs text-gray-500 mb-1">Create a folder in <code>public/images/</code> with this
-                            name.</p>
-                        <input type="text" id="imageFolder" placeholder="P-011"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 bg-yellow-50">
+                        <label class="block text-sm font-medium text-gray-700">Image Names (One per line)</label>
+                        <p class="text-xs text-gray-500 mb-1">e.g. 1&#10;2&#10;front. (Image <b>1</b> will always be
+                            first/cover)</p>
+                        <textarea id="imageNames" rows="4" placeholder="1&#10;2&#10;3"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 bg-white"></textarea>
                     </div>
                 </div>
 
@@ -236,7 +253,7 @@
                 </h3>
                 <p class="text-sm text-gray-500 mb-4 px-1">
                     1. Create a folder in <code>public/images/</code> named the same as your ID.<br>
-                    2. Add images named <code>1.jpg</code>, <code>2.jpg</code> etc. inside it.<br>
+                    2. Place your images in that folder (ensure names match what you entered).<br>
                     3. Copy the code below.<br>
                     4. Paste it inside the <code>window.ALL_PROPERTIES = [ ... ]</code> list in
                     <code>js/properties.js</code>.
@@ -299,18 +316,39 @@
                 document.getElementById('listingType').value = data.listingType || "sale";
                 document.getElementById('condition').value = data.condition || "used";
                 document.getElementById('description').value = data.description || "";
-                document.getElementById('features').value = (data.features || []).join(', ');
+                document.getElementById('features').value = (data.features || []).join('\n');
 
                 document.getElementById('electricity').checked = !!data.electricity;
                 document.getElementById('water').checked = !!data.water;
                 document.getElementById('parking').checked = !!data.parking;
 
-                // Try to infer folder from first image
+                // Try to infer folder and names from images
                 if (data.images && data.images.length > 0) {
-                    const parts = data.images[0].split('/');
+                    const firstImage = data.images[0];
+                    const parts = firstImage.split('/');
+
+                    // Folder name
                     if (parts.length > 2) {
-                        document.getElementById('imageFolder').value = parts[2];
+                        document.getElementById('imageFolder').value = parts[parts.length - 2];
                     }
+
+                    // Extension
+                    const extIndex = firstImage.lastIndexOf('.');
+                    if (extIndex !== -1) {
+                        const ext = firstImage.substring(extIndex);
+                        const extSelect = document.getElementById('imageExt');
+                        if ([...extSelect.options].some(o => o.value === ext)) {
+                            extSelect.value = ext;
+                        }
+                    }
+
+                    // Image names
+                    const names = data.images.map(img => {
+                        const parts = img.split('/');
+                        const fileName = parts[parts.length - 1];
+                        return fileName.substring(0, fileName.lastIndexOf('.'));
+                    });
+                    document.getElementById('imageNames').value = names.join('\n');
                 }
 
                 alert("Property data loaded successfully! You can now edit the fields.");
@@ -337,7 +375,7 @@
                 listingType: document.getElementById('listingType').value,
                 status: "available",
                 description: document.getElementById('description').value || "No description provided.",
-                features: document.getElementById('features').value.split(',').map(f => f.trim()).filter(f => f),
+                features: document.getElementById('features').value.split('\n').map(f => f.trim()).filter(f => f),
                 electricity: document.getElementById('electricity').checked,
                 water: document.getElementById('water').checked,
                 images: [],
@@ -358,11 +396,19 @@
             }
 
             const folder = document.getElementById('imageFolder').value || data.code;
-            data.images = [
-                `public/images/${folder}/1.jpg`,
-                `public/images/${folder}/2.jpg`,
-                `public/images/${folder}/3.jpg`
-            ];
+            const namesInput = document.getElementById('imageNames').value || "1";
+            const ext = document.getElementById('imageExt').value || ".jpg";
+
+            let names = namesInput.split('\n').map(n => n.trim()).filter(n => n);
+
+            // Ensure '1' is first if it exists (for cover image)
+            if (names.includes('1')) {
+                names = ['1', ...names.filter(n => n !== '1')];
+                // Update the input field to reflect the sorted order
+                document.getElementById('imageNames').value = names.join('\n');
+            }
+
+            data.images = names.map(name => `public/images/${folder}/${name}${ext}`);
 
             const jsonString = JSON.stringify(data, null, 4);
             const outputText = `    ,\n${jsonString}`;

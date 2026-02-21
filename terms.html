@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Elite Estates</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3176b1',
+                        secondary: '#2b3685',
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="public/images/favicon.png">
+
+    <style>
+        .legal-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: #4b5563;
+        }
+
+        .legal-content h2 {
+            color: #111827;
+            margin-top: 2.5rem;
+            margin-bottom: 1.25rem;
+            font-weight: 800;
+            font-size: 1.5rem;
+            border-left: 4px solid #3176b1;
+            padding-left: 1rem;
+        }
+
+        .legal-content ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #4b5563;
+        }
+
+        .legal-content li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900 font-sans antialiased flex flex-col min-h-screen">
+
+    <div id="navbar-container"></div>
+
+    <main class="flex-grow max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
+        <div class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-black text-gray-900 mb-6">Terms of Service</h1>
+            <p class="text-gray-500 font-medium">Last updated: February 21, 2026</p>
+            <div class="h-1.5 w-24 bg-primary rounded-full mx-auto mt-8"></div>
+        </div>
+
+        <article class="legal-content glass-panel p-8 md:p-12 rounded-[2.5rem]">
+            <p>Welcome to Elite Estates. By using our website and services, you agree to comply with and be bound by the
+                following terms and conditions of use.</p>
+
+            <h2>1. Acceptance of Terms</h2>
+            <p>By accessing this website, you agree to be bound by these Terms of Service, all applicable laws and
+                regulations, and agree that you are responsible for compliance with any applicable local laws.</p>
+
+            <h2>2. Use License</h2>
+            <p>Permission is granted to temporarily view the materials (information or software) on Elite Estates'
+                website for personal, non-commercial transitory viewing only.</p>
+            <ul>
+                <li>You may not modify or copy the materials.</li>
+                <li>You may not use the materials for any commercial purpose.</li>
+                <li>You may not attempt to decompile or reverse engineer any software contained on the website.</li>
+            </ul>
+
+            <h2>3. Accuracy of Listings</h2>
+            <p>While we strive to provide accurate and up-to-date property information, Elite Estates does not warrant
+                the accuracy, completeness, or reliability of any property descriptions, prices, or images. All listings
+                are subject to change without notice.</p>
+
+            <h2>4. Limitation of Liability</h2>
+            <p>In no event shall Elite Estates or its suppliers be liable for any damages (including, without
+                limitation, damages for loss of data or profit) arising out of the use or inability to use the materials
+                on our website.</p>
+
+            <h2>5. Governing Law</h2>
+            <p>Any claim relating to Elite Estates' website shall be governed by the laws of Sri Lanka without regard to
+                its conflict of law provisions.</p>
+
+            <h2>6. User Responsibilities</h2>
+            <p>Users are responsible for verifying the authenticity of any property and its legal status before entering
+                into any transaction. Elite Estates serves as a platform and agency, but final due diligence rests with
+                the buyer/renter.</p>
+
+            <h2>7. External Links</h2>
+            <p>Elite Estates has not reviewed all of the sites linked to its website and is not responsible for the
+                contents of any such linked site.</p>
+        </article>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            window.initPage();
+        });
+    </script>
+</body>
+
+</html>
