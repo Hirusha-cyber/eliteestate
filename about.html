@@ -22,6 +22,9 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="css/styles.css">
 
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="public/images/favicon.png">
 </head>
@@ -31,12 +34,13 @@
     <div id="navbar-container"></div>
 
     <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full">
-        <div class="max-w-3xl mx-auto text-center mb-12">
+        <div class="max-w-3xl mx-auto text-center mb-12" data-aos="fade-down">
             <h1 class="text-4xl font-extrabold text-gray-900 mb-4">About Elite Estates</h1>
             <p class="text-lg text-gray-600">Your trusted partner in finding the perfect property in Sri Lanka.</p>
         </div>
 
-        <div class="glass-panel rounded-3xl shadow-xl p-8 md:p-12 prose prose-lg mx-auto text-gray-600">
+        <div class="glass-panel rounded-3xl shadow-xl p-8 md:p-12 prose prose-lg mx-auto text-gray-600"
+            data-aos="fade-up" data-aos-delay="200">
             <p class="mb-6">
                 Welcome to Elite Estates, a premier real estate agency dedicated to providing you with the finest
                 properties across the island. Whether you are looking for a luxury villa by the ocean, a modern city
@@ -63,6 +67,8 @@
     <script src="js/utils.js"></script>
     <script src="js/components.js"></script>
     <script src="js/app.js"></script>
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', window.initPage);
     </script>

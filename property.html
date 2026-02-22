@@ -27,6 +27,9 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
 
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="public/images/favicon.png">
 </head>
@@ -40,7 +43,7 @@
     <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
 
         <!-- Breadcrumb -->
-        <nav class="flex mb-8" aria-label="Breadcrumb">
+        <nav class="flex mb-8" aria-label="Breadcrumb" data-aos="fade-down">
             <ol class="flex items-center space-x-2 text-sm text-gray-500">
                 <li><a href="index.html" class="hover:text-primary">Home</a></li>
                 <li><i data-lucide="chevron-right" class="h-4 w-4"></i></li>
@@ -65,7 +68,7 @@
         <div id="property-content" class="hidden grid grid-cols-1 lg:grid-cols-3 gap-y-8 lg:gap-x-8">
 
             <!-- Gallery (Order 1) -->
-            <div class="lg:col-span-2 order-1">
+            <div class="lg:col-span-2 order-1" data-aos="fade-up" data-aos-delay="0">
 
                 <!-- Gallery -->
                 <div class="glass-card rounded-2xl overflow-hidden shadow-sm relative group">
@@ -113,7 +116,7 @@
             </div>
 
             <!-- Description (Order 3) -->
-            <div class="lg:col-span-2 order-3">
+            <div class="lg:col-span-2 order-3" data-aos="fade-up" data-aos-delay="200">
                 <div class="glass-panel rounded-xl shadow-sm p-6 md:p-8">
                     <h2 class="text-2xl font-bold text-gray-900 mb-4">Description</h2>
                     <p id="prop-description" class="text-gray-600 leading-relaxed mb-6">
@@ -128,7 +131,7 @@
             </div>
 
             <!-- Info Card & Contact (Order 2 on Mobile, Sidebar on Desktop) -->
-            <div class="lg:col-span-1 order-2 lg:row-span-2">
+            <div class="lg:col-span-1 order-2 lg:row-span-2" data-aos="fade-left" data-aos-delay="100">
                 <div class="glass-panel rounded-xl shadow-sm p-6">
                     <div class="mb-6 border-b border-gray-100 pb-6">
                         <h1 id="prop-title" class="text-2xl font-bold text-gray-900 mb-2"></h1>
@@ -308,6 +311,10 @@
     <script src="js/properties.js"></script>
     <script src="js/components.js"></script>
     <script src="js/app.js"></script>
+
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', window.initPropertyDetails);
     </script>

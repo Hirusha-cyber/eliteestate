@@ -139,7 +139,7 @@ window.FooterCTA = () => `
     </div>
 `;
 
-window.PropertyCard = (property) => {
+window.PropertyCard = (property, index = 0) => {
     const isAvailable = property.status === 'available';
     const statusColor = isAvailable ? 'bg-green-100 text-green-800' :
         property.status === 'reserved' ? 'bg-yellow-100 text-yellow-800' :
@@ -149,9 +149,10 @@ window.PropertyCard = (property) => {
     const mainImage = property.images && property.images.length > 0 ? property.images[0] : 'https://via.placeholder.com/400x300?text=No+Image';
 
     const isLand = (property.category || 'house') === 'land';
+    const delay = (index % 12) * 100; // Staggered delay logic
 
     return `
-    <div class="glass-card rounded-2xl overflow-hidden flex flex-col h-full group relative">
+    <div class="glass-card rounded-2xl overflow-hidden flex flex-col h-full group relative" data-aos="fade-up" data-aos-delay="${Math.min(delay, 1200)}">
         <div class="relative h-64 overflow-hidden">
             <img src="${mainImage}" alt="${property.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <div class="absolute top-4 left-4">
@@ -233,8 +234,10 @@ window.PropertyCard = (property) => {
 `;
 };
 
-window.BlogCard = (post) => `
-    <article class="glass-card rounded-2xl overflow-hidden hover:shadow-card-hover transition-all duration-300 group cursor-pointer" onclick="window.location.href='blog-post.html?id=${post.id}'">
+window.BlogCard = (post, index = 0) => {
+    const delay = (index % 12) * 100; // Staggered delay logic
+    return `
+    <article class="glass-card rounded-2xl overflow-hidden hover:shadow-card-hover transition-all duration-300 group cursor-pointer" data-aos="fade-up" data-aos-delay="${Math.min(delay, 1200)}" onclick="window.location.href='blog-post.html?id=${post.id}'">
         <div class="relative h-56 overflow-hidden">
             <img src="${post.image}" alt="${post.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <div class="absolute top-4 left-4">
@@ -259,3 +262,4 @@ window.BlogCard = (post) => `
         </div>
     </article>
 `;
+};

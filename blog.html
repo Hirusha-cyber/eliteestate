@@ -33,6 +33,9 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
 
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="public/images/favicon.png">
 </head>
@@ -56,17 +59,19 @@
         </div>
 
         <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
-            <h1 class="text-4xl md:text-7xl font-extrabold text-gray-900 mb-6 drop-shadow-sm">
+            <h1 class="text-4xl md:text-7xl font-extrabold text-gray-900 mb-6 drop-shadow-sm" data-aos="fade-down">
                 Real Estate <br class="hidden md:block">
                 <span class="text-primary">Blog & Insights</span>
             </h1>
-            <p class="text-lg md:text-2xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
+            <p class="text-lg md:text-2xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed" data-aos="fade-up"
+                data-aos-delay="200">
                 Stay updated with the latest property trends, investment advice, and expert real estate insights across
                 Sri Lanka.
             </p>
 
             <!-- Discover Button: Part of the 1st Screen -->
-            <button id="discover-btn" class="inline-flex flex-col items-center gap-2 group transition-all">
+            <button id="discover-btn" class="inline-flex flex-col items-center gap-2 group transition-all"
+                data-aos="zoom-in" data-aos-delay="400">
                 <div
                     class="bg-primary text-white p-5 rounded-full shadow-2xl group-hover:bg-secondary group-hover:scale-110 transition-all animate-bounce-slow">
                     <i data-lucide="chevron-down" class="w-8 h-8"></i>
@@ -80,7 +85,7 @@
     <main id="articles-section"
         class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-24 w-full scroll-mt-24">
 
-        <div class="flex flex-col items-center mb-16 text-center">
+        <div class="flex flex-col items-center mb-16 text-center" data-aos="fade-up">
             <span class="text-primary font-bold tracking-widest uppercase text-sm mb-2">Our Content</span>
             <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">Latest Articles</h2>
             <div class="h-1.5 w-24 bg-primary rounded-full"></div>
@@ -104,6 +109,8 @@
     <script src="js/blog-data.js"></script>
     <script src="js/components.js"></script>
     <script src="js/app.js"></script>
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', window.initBlog);
     </script>

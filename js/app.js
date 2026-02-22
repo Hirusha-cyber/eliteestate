@@ -42,6 +42,16 @@ const initCommonLayout = () => {
         // Glassify Selects
         initCustomSelects();
 
+        // Initialize AOS animations if available
+        if (window.AOS) {
+            window.AOS.init({
+                once: true,
+                offset: 50,
+                duration: 800,
+                easing: 'ease-out-cubic',
+            });
+        }
+
     } catch (error) {
         console.error("Layout initialization failed:", error);
     }
@@ -180,7 +190,7 @@ window.initBlog = () => {
 
     const blogContainer = document.getElementById('blog-posts-grid');
     if (blogContainer && window.BLOG_POSTS) {
-        blogContainer.innerHTML = window.BLOG_POSTS.map(post => window.BlogCard(post)).join('');
+        blogContainer.innerHTML = window.BLOG_POSTS.map((post, index) => window.BlogCard(post, index)).join('');
         if (window.lucide) window.lucide.createIcons();
     }
 };
@@ -279,11 +289,14 @@ const renderListings = () => {
         noResults.classList.remove('hidden');
     } else {
         noResults.classList.add('hidden');
-        grid.innerHTML = filteredProperties.map(property => window.PropertyCard(property)).join('');
+        grid.innerHTML = filteredProperties.map((property, index) => window.PropertyCard(property, index)).join('');
     }
 
     // Re-init icons for new content
     if (window.lucide) window.lucide.createIcons();
+
+    // Refresh animations for newly rendered DOM content
+    if (window.AOS) setTimeout(() => { window.AOS.refresh(); }, 100);
 };
 
 const setupFilters = () => {
@@ -816,6 +829,11 @@ const renderPropertyDetails = (property) => {
     if (waBtn) waBtn.href = generateWhatsAppLink(property);
 
     if (window.lucide) window.lucide.createIcons();
+
+    // Refresh AOS animations since we just made the hidden wrapper visible
+    if (window.AOS) {
+        setTimeout(() => { window.AOS.refresh(); }, 100);
+    }
 };
 
 let currentImageIndex = 0;
