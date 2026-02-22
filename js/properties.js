@@ -50,6 +50,58 @@ window.ALL_PROPERTIES = [
         "perches": 7.15
     },
 
+        ,
+{
+    "category": "house",
+    "code": "EP-001",
+    "title": "House for sale in Piliyandala",
+    "price": 24500000,
+    "currency": "LKR",
+    "location": {
+        "city": "Piliyandala",
+        "area": "Siddamulla",
+        "district": "Colombo"
+    },
+    "listingType": "sale",
+    "status": "available",
+    "description": "Discover this partially renovated house for sale in Piliyandala, perfectly positioned just 100 meters from the 255 Kottawa–Mt. Lavinia main bus route. This property offers unbeatable convenience, located only 4 km to Piliyandala town and 4 km to Kottawa town, making daily commuting smooth and stress-free.\nThis home is ideal for families looking for a peaceful residential environment with easy access to schools, supermarkets, hospitals, and public transport. The house has been partially renovated, giving you the advantage of moving in comfortably while still having room to customize and add your personal touch.\nThe property also features a dedicated dog cage, making it perfect for pet lovers. There is generous garden space for landscaping or home gardening, along with a separate store room for extra storage needs. Whether you’re looking for a family home or a smart real estate investment in Piliyandala, this property offers strong value due to its prime location and future growth potential.",
+    "features": [
+        "100m to 255 Bus Route",
+        "4km to Piliyandala Town",
+        "4km to Kottawa Town",
+        "All Essential Utilities Available",
+        "Garden Space + Store Room",
+        "Dog-Friendly Setup",
+        "Clear & Secure Ownership",
+        "Strategic Location Advantage",
+        "Investment-Grade Opportunity",
+        "Highly Residential & Peaceful Neighborhood"
+    ],
+    "electricity": true,
+    "water": true,
+    "images": [
+        "public/images/EP-001/Piliyandala House front 2.webp",
+        "public/images/EP-001/Piliynadala House front 3.webp",
+        "public/images/EP-001/Piliyandala House front 1.webp",
+        "public/images/EP-001/Piliynadala house living area 1.webp",
+        "public/images/EP-001/Piliyandala house living area 2.webp",
+        "public/images/EP-001/Piliyandala House living area 3.webp",
+        "public/images/EP-001/Piliyandala house bedroom 1.webp",
+        "public/images/EP-001/Piliyandala house bedroom 2.webp",
+        "public/images/EP-001/Piliynadala house bathroom.webp",
+        "public/images/EP-001/Piliynadala house back area.webp"
+    ],
+    "featured": false,
+    "bedrooms": 3,
+    "bathrooms": 1,
+    "areaSize": 1500,
+    "areaUnit": "sqft",
+    "floors": 1,
+    "condition": "used",
+    "parking": true,
+    "perches": 20
+}
+
     {
         "category": "house",
         "code": "EP-003",
@@ -99,6 +151,7 @@ window.ALL_PROPERTIES = [
         "perches": 10
     }
 ];
+
 
 
 
