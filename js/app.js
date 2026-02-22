@@ -546,7 +546,8 @@ const setupFilters = () => {
             const statusB = statusOrder[b.status] || 99;
             if (statusA !== statusB) return statusA - statusB;
 
-            return 0;
+            // Tiebreaker: sort by property code (e.g. EP-001 < EP-002)
+            return (a.code || '').localeCompare(b.code || '', undefined, { numeric: true, sensitivity: 'base' });
         });
 
         renderListings();
