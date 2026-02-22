@@ -13,7 +13,7 @@ window.ALL_PROPERTIES = [
     },
     "listingType": "sale",
     "status": "available",
-    "description": "🏡 Brand New Luxury Residence for Sale – Homagama\n\nPresenting a brand-new, architecturally designed home situated in one of Homagama’s most peaceful and highly residential neighborhoods. This stunning property is perfectly positioned facing scenic paddy fields, offering uninterrupted green views and a calm, private living atmosphere — ideal for families or smart investors seeking long-term value growth.\n\nLocated just 3.5KM to Homagama Town, the property enjoys close proximity to major conveniences including NSBM University, supermarkets, banks, schools, and public transport access. The home is accessible via a 20-foot wide road, ensuring easy vehicle movement and strong future resale potential.\n\nThe property is developed with all essential amenities in place and comes with all necessary approvals, giving buyers complete peace of mind. With an excellent partitioned clear title, this is a secure and legally sound investment opportunity.\n\nWhether you’re looking for a serene family home or a strategic real estate asset in a fast-developing zone, this property delivers both lifestyle and value appreciation potential.\n\n💰 Price Negotiable – Highest Offer Considered",
+    "description": "🏡 Brand New Luxury Residence for Sale – Homagama\nPresenting a brand-new, architecturally designed home situated in one of Homagama’s most peaceful and highly residential neighborhoods. This stunning property is perfectly positioned facing scenic paddy fields, offering uninterrupted green views and a calm, private living atmosphere — ideal for families or smart investors seeking long-term value growth.\nLocated just 3.5KM to Homagama Town, the property enjoys close proximity to major conveniences including NSBM University, supermarkets, banks, schools, and public transport access. The home is accessible via a 20-foot wide road, ensuring easy vehicle movement and strong future resale potential.\nThe property is developed with all essential amenities in place and comes with all necessary approvals, giving buyers complete peace of mind. With an excellent partitioned clear title, this is a secure and legally sound investment opportunity.\nWhether you’re looking for a serene family home or a strategic real estate asset in a fast-developing zone, this property delivers both lifestyle and value appreciation potential.\n\n💰 Price Negotiable – Highest Offer Considered",
     "features": [
         "Brand-New Construction",
         "All Essential Utilities Available",
@@ -100,6 +100,7 @@ window.ALL_PROPERTIES = [
         "perches": 10
     }
 ];
+
 
 
 
