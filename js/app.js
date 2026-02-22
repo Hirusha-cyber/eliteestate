@@ -358,7 +358,7 @@ const setupFilters = () => {
             const searchRect = mainSearch ? mainSearch.getBoundingClientRect() : { bottom: 0 };
 
             // Show sticky header if scrolled past nav
-            if (window.scrollY > navHeight) {
+            if (document.documentElement.scrollTop > navHeight) {
                 stickyHeader.classList.remove('translate-y-[-150%]');
                 stickyHeader.classList.add('translate-y-0');
 
