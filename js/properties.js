@@ -48,7 +48,59 @@ window.ALL_PROPERTIES = [
         "parking": true,
         "perches": 10
     }
+        ,
+{
+    "category": "house",
+    "code": "EP-002",
+    "title": "House for sale in Homagama",
+    "price": 19800000,
+    "currency": "LKR",
+    "location": {
+        "city": "Homagama",
+        "area": "Uduwana",
+        "district": "Colombo"
+    },
+    "listingType": "sale",
+    "status": "available",
+    "description": "🏡 Brand New Luxury Residence for Sale – Homagama\n\nPresenting a brand-new, architecturally designed home situated in one of Homagama’s most peaceful and highly residential neighborhoods. This stunning property is perfectly positioned facing scenic paddy fields, offering uninterrupted green views and a calm, private living atmosphere — ideal for families or smart investors seeking long-term value growth.\n\nLocated just 3.5KM to Homagama Town, the property enjoys close proximity to major conveniences including NSBM University, supermarkets, banks, schools, and public transport access. The home is accessible via a 20-foot wide road, ensuring easy vehicle movement and strong future resale potential.\n\nThe property is developed with all essential amenities in place and comes with all necessary approvals, giving buyers complete peace of mind. With an excellent partitioned clear title, this is a secure and legally sound investment opportunity.\n\nWhether you’re looking for a serene family home or a strategic real estate asset in a fast-developing zone, this property delivers both lifestyle and value appreciation potential.\n\n💰 Price Negotiable – Highest Offer Considered",
+    "features": [
+        "Brand-New Construction",
+        "All Essential Utilities Available",
+        "Clear & Secure Ownership",
+        "Strategic Location Advantage",
+        "Investment-Grade Opportunity",
+        "Highly Residential & Peaceful Neighborhood",
+        "20-Foot Wide Access Road",
+        "Uninterrupted Paddy Field Views"
+    ],
+    "electricity": true,
+    "water": true,
+    "images": [
+        "public/images/EP-002/Homagama House front 1.webp",
+        "public/images/EP-002/Homagama House front 2.webp",
+        "public/images/EP-002/Homagama House side.webp",
+        "public/images/EP-002/Homagama House front 3.webp",
+        "public/images/EP-002/Homagama House livingroom.webp",
+        "public/images/EP-002/Homagama House living room 2.webp",
+        "public/images/EP-002/Homagama House room 1.webp",
+        "public/images/EP-002/Homagama House room 4.webp",
+        "public/images/EP-002/Homagama House room 2.webp",
+        "public/images/EP-002/Homagama House room 3.webp",
+        "public/images/EP-002/Homagama House kitchen.webp",
+        "public/images/EP-002/Homagama House bathroom.webp"
+    ],
+    "featured": false,
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "areaSize": 1300,
+    "areaUnit": "sqft",
+    "floors": 1,
+    "condition": "new",
+    "parking": true,
+    "perches": 7.15
+}
 ];
+
 
 
 
