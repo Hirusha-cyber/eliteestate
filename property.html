@@ -62,10 +62,10 @@
         </div>
 
         <!-- Property Content (Hidden until loaded) -->
-        <div id="property-content" class="hidden grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div id="property-content" class="hidden grid grid-cols-1 lg:grid-cols-3 gap-y-8 lg:gap-x-8">
 
-            <!-- Left Column: Gallery & Description -->
-            <div class="lg:col-span-2 space-y-8">
+            <!-- Gallery (Order 1) -->
+            <div class="lg:col-span-2 order-1">
 
                 <!-- Gallery -->
                 <div class="glass-card rounded-2xl overflow-hidden shadow-sm relative group">
@@ -110,8 +110,10 @@
                         </button>
                     </div>
                 </div>
+            </div>
 
-                <!-- Description -->
+            <!-- Description (Order 3) -->
+            <div class="lg:col-span-2 order-3">
                 <div class="glass-panel rounded-xl shadow-sm p-6 md:p-8">
                     <h2 class="text-2xl font-bold text-gray-900 mb-4">Description</h2>
                     <p id="prop-description" class="text-gray-600 leading-relaxed mb-6">
@@ -123,14 +125,11 @@
                         <!-- Features injected here -->
                     </ul>
                 </div>
-
             </div>
 
-            <!-- Right Column: Key Info & Contact -->
-            <div class="lg:col-span-1 space-y-6">
-
-                <!-- Info Card -->
-                <div class="glass-panel rounded-xl shadow-sm p-6 sticky top-24">
+            <!-- Info Card & Contact (Order 2 on Mobile, Sidebar on Desktop) -->
+            <div class="lg:col-span-1 order-2 lg:row-span-2">
+                <div class="glass-panel rounded-xl shadow-sm p-6">
                     <div class="mb-6 border-b border-gray-100 pb-6">
                         <h1 id="prop-title" class="text-2xl font-bold text-gray-900 mb-2"></h1>
                         <div class="flex items-center text-gray-500 mb-4">
@@ -143,62 +142,145 @@
 
                     <!-- Key Stats Grid -->
                     <div class="grid grid-cols-2 gap-4 mb-8">
-                        <div class="flex flex-col p-3 bg-gray-50 rounded-lg">
-                            <span class="text-xs text-gray-500 uppercase tracking-wide">Bedrooms</span>
-                            <div class="flex items-center mt-1">
-                                <i data-lucide="bed" class="w-4 h-4 mr-2 text-primary"></i>
-                                <span class="font-semibold text-gray-900" id="prop-beds"></span>
+                        <div
+                            class="flex flex-col p-4 bg-white/60 border border-white/80 rounded-2xl shadow-sm hover:shadow-md transition-all">
+                            <span
+                                class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-2">Bedrooms</span>
+                            <div class="flex items-center">
+                                <div
+                                    class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center mr-3 text-primary">
+                                    <i data-lucide="bed" class="w-4 h-4"></i>
+                                </div>
+                                <span class="font-bold text-gray-900 text-lg" id="prop-beds"></span>
                             </div>
                         </div>
-                        <div class="flex flex-col p-3 bg-gray-50 rounded-lg">
-                            <span class="text-xs text-gray-500 uppercase tracking-wide">Bathrooms</span>
-                            <div class="flex items-center mt-1">
-                                <i data-lucide="bath" class="w-4 h-4 mr-2 text-primary"></i>
-                                <span class="font-semibold text-gray-900" id="prop-baths"></span>
+                        <div
+                            class="flex flex-col p-4 bg-white/60 border border-white/80 rounded-2xl shadow-sm hover:shadow-md transition-all">
+                            <span
+                                class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-2">Bathrooms</span>
+                            <div class="flex items-center">
+                                <div
+                                    class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center mr-3 text-primary">
+                                    <i data-lucide="bath" class="w-4 h-4"></i>
+                                </div>
+                                <span class="font-bold text-gray-900 text-lg" id="prop-baths"></span>
                             </div>
                         </div>
-                        <div class="flex flex-col p-3 bg-gray-50 rounded-lg">
-                            <span class="text-xs text-gray-500 uppercase tracking-wide">House Area</span>
-                            <div class="flex items-center mt-1">
-                                <i data-lucide="ruler" class="w-4 h-4 mr-2 text-primary"></i>
-                                <span class="font-semibold text-gray-900" id="prop-area"></span>
+                        <div
+                            class="flex flex-col p-4 bg-white/60 border border-white/80 rounded-2xl shadow-sm hover:shadow-md transition-all">
+                            <span class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-2">House
+                                Area</span>
+                            <div class="flex items-center">
+                                <div
+                                    class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center mr-3 text-primary">
+                                    <i data-lucide="home" class="w-4 h-4"></i>
+                                </div>
+                                <span class="font-bold text-gray-900" id="prop-area"></span>
                             </div>
                         </div>
-                        <div class="flex flex-col p-3 bg-gray-50 rounded-lg" id="prop-land-container">
-                            <span class="text-xs text-gray-500 uppercase tracking-wide">Land Size</span>
-                            <div class="flex items-center mt-1">
-                                <i data-lucide="map" class="w-4 h-4 mr-2 text-primary"></i>
-                                <span class="font-semibold text-gray-900" id="prop-land"></span>
+                        <div class="flex flex-col p-4 bg-white/60 border border-white/80 rounded-2xl shadow-sm hover:shadow-md transition-all"
+                            id="prop-land-container">
+                            <span class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-2">Land
+                                Size</span>
+                            <div class="flex items-center">
+                                <div
+                                    class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center mr-3 text-primary">
+                                    <i data-lucide="map" class="w-4 h-4"></i>
+                                </div>
+                                <span class="font-bold text-gray-900" id="prop-land"></span>
                             </div>
                         </div>
-                        <div class="flex flex-col p-3 bg-gray-50 rounded-lg">
-                            <span class="text-xs text-gray-500 uppercase tracking-wide">Type</span>
-                            <div class="flex items-center mt-1">
-                                <i data-lucide="tag" class="w-4 h-4 mr-2 text-primary"></i>
-                                <span class="font-semibold text-gray-900 capitalize" id="prop-type"></span>
+                        <div
+                            class="flex flex-col p-4 bg-white/60 border border-white/80 rounded-2xl shadow-sm hover:shadow-md transition-all">
+                            <span class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-2">Listing
+                                Type</span>
+                            <div class="flex items-center">
+                                <div
+                                    class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center mr-3 text-primary">
+                                    <i data-lucide="tag" class="w-4 h-4"></i>
+                                </div>
+                                <span class="font-bold text-gray-900 capitalize" id="prop-type"></span>
                             </div>
                         </div>
-                        <div class="flex flex-col p-3 bg-gray-50 rounded-lg" id="prop-condition-container">
-                            <span class="text-xs text-gray-500 uppercase tracking-wide">Condition</span>
-                            <div class="flex items-center mt-1">
-                                <i data-lucide="sparkles" class="w-4 h-4 mr-2 text-primary"></i>
-                                <span class="font-semibold text-gray-900 capitalize" id="prop-condition"></span>
+                        <div class="flex flex-col p-4 bg-white/60 border border-white/80 rounded-2xl shadow-sm hover:shadow-md transition-all"
+                            id="prop-condition-container">
+                            <span
+                                class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-2">Condition</span>
+                            <div class="flex items-center">
+                                <div
+                                    class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center mr-3 text-primary">
+                                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                                </div>
+                                <span class="font-bold text-gray-900 capitalize" id="prop-condition"></span>
                             </div>
                         </div>
                     </div>
 
                     <!-- Utilities Block (Especially for Lands) -->
-                    <div id="utilities-block" class="bg-blue-50/50 rounded-xl p-4 mb-8 hidden">
-                        <h4 class="text-xs font-bold text-blue-800 uppercase tracking-widest mb-3">Utilities &
-                            Infrastructure</h4>
-                        <div class="space-y-2">
-                            <div id="util-electricity" class="flex items-center text-sm font-medium">
-                                <i data-lucide="zap" class="w-4 h-4 mr-2 text-yellow-500"></i>
-                                <span>Electricity: <span class="text-green-600">Available</span></span>
+                    <div id="utilities-block" class="mb-8 hidden">
+                        <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4 flex items-center">
+                            <span class="flex-grow h-px bg-gray-200 mr-3"></span>
+                            Utilities & Infrastructure
+                            <span class="flex-grow h-px bg-gray-200 ml-3"></span>
+                        </h4>
+
+                        <div class="grid grid-cols-1 gap-3">
+                            <!-- Electricity -->
+                            <div id="util-electricity-card"
+                                class="flex items-center justify-between p-3 rounded-xl bg-white/50 border border-gray-100 shadow-sm transition-all hover:shadow-md">
+                                <div class="flex items-center">
+                                    <div
+                                        class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center mr-3 text-yellow-600">
+                                        <i data-lucide="zap" class="w-5 h-5"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-gray-500 font-medium">Electricity</p>
+                                        <p id="util-electricity-status" class="text-sm font-bold text-gray-900">
+                                            Available</p>
+                                    </div>
+                                </div>
+                                <div id="util-electricity-indicator"
+                                    class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]">
+                                </div>
                             </div>
-                            <div id="util-water" class="flex items-center text-sm font-medium">
-                                <i data-lucide="droplets" class="w-4 h-4 mr-2 text-blue-500"></i>
-                                <span>Water Supply: <span class="text-green-600">Available</span></span>
+
+                            <!-- Water -->
+                            <div id="util-water-card"
+                                class="flex items-center justify-between p-3 rounded-xl bg-white/50 border border-gray-100 shadow-sm transition-all hover:shadow-md">
+                                <div class="flex items-center">
+                                    <div
+                                        class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3 text-blue-600">
+                                        <i data-lucide="droplets" class="w-5 h-5"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-gray-500 font-medium">Water Supply</p>
+                                        <p id="util-water-status" class="text-sm font-bold text-gray-900">Available
+                                        </p>
+                                    </div>
+                                </div>
+                                <div id="util-water-indicator"
+                                    class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]">
+                                </div>
+                            </div>
+
+                            <!-- Parking -->
+                            <div id="util-parking-card"
+                                class="flex items-center justify-between p-3 rounded-xl bg-white/50 border border-gray-100 shadow-sm transition-all hover:shadow-md hidden">
+                                <div class="flex items-center">
+                                    <div
+                                        class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center mr-3 text-indigo-600">
+                                        <i data-lucide="car" class="w-5 h-5"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-gray-500 font-medium">Parking</p>
+                                        <p id="util-parking-status" class="text-sm font-bold text-gray-900">
+                                            Available
+                                        </p>
+                                    </div>
+                                </div>
+                                <div id="util-parking-indicator"
+                                    class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]">
+                                </div>
                             </div>
                         </div>
                     </div>

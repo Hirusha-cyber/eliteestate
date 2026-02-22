@@ -777,24 +777,34 @@ const renderPropertyDetails = (property) => {
         if (property.electricity || property.water || property.parking) {
             utilBlock.classList.remove('hidden');
 
-            const elecEl = document.getElementById('util-electricity');
-            if (elecEl) elecEl.className = property.electricity ? 'flex items-center text-sm font-medium text-slate-700' : 'flex items-center text-sm font-medium text-gray-400 line-through opacity-50';
+            // Helper to update status cards
+            const updateUtil = (id, available) => {
+                const status = document.getElementById(`util-${id}-status`);
+                const indicator = document.getElementById(`util-${id}-indicator`);
+                const card = document.getElementById(`util-${id}-card`);
 
-            const waterEl = document.getElementById('util-water');
-            if (waterEl) waterEl.className = property.water ? 'flex items-center text-sm font-medium text-slate-700' : 'flex items-center text-sm font-medium text-gray-400 line-through opacity-50';
+                if (status) status.textContent = available ? 'Available' : 'Not Available';
+                if (indicator) {
+                    indicator.className = available
+                        ? 'w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]'
+                        : 'w-2 h-2 rounded-full bg-gray-300';
+                }
+                if (card) {
+                    card.style.opacity = available ? '1' : '0.6';
+                    if (!available) card.classList.add('bg-gray-50/50');
+                    else card.classList.remove('bg-gray-50/50');
+                }
+            };
 
-            let parkingEl = document.getElementById('util-parking');
-            if (!parkingEl) {
-                parkingEl = document.createElement('div');
-                parkingEl.id = 'util-parking';
-                utilBlock.querySelector('.space-y-2').appendChild(parkingEl);
-            }
-            if (property.category === 'house') {
-                parkingEl.classList.remove('hidden');
-                parkingEl.className = property.parking ? 'flex items-center text-sm font-medium text-slate-700' : 'flex items-center text-sm font-medium text-gray-400 line-through opacity-50';
-                parkingEl.innerHTML = `<i data-lucide="car" class="w-4 h-4 mr-2 text-slate-500"></i><span>Parking: Available</span>`;
-            } else {
-                parkingEl.classList.add('hidden');
+            updateUtil('electricity', property.electricity);
+            updateUtil('water', property.water);
+
+            const parkingCard = document.getElementById('util-parking-card');
+            if (property.category === 'house' && property.parking !== undefined) {
+                if (parkingCard) parkingCard.classList.remove('hidden');
+                updateUtil('parking', property.parking);
+            } else if (parkingCard) {
+                parkingCard.classList.add('hidden');
             }
         } else {
             utilBlock.classList.add('hidden');
