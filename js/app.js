@@ -358,7 +358,7 @@ const setupFilters = () => {
             const searchRect = mainSearch ? mainSearch.getBoundingClientRect() : { bottom: 0 };
 
             // Show sticky header if scrolled past nav
-            if (document.documentElement.scrollTop > navHeight) {
+            if (window.scrollY > navHeight) {
                 stickyHeader.classList.remove('translate-y-[-150%]');
                 stickyHeader.classList.add('translate-y-0');
 
@@ -571,7 +571,14 @@ const setupFilters = () => {
             const hasQuery = (mainSearchInput?.value.trim() !== '') || (stickySearchInput?.value.trim() !== '');
             if (resultsSection && hasQuery) {
                 setTimeout(() => {
-                    resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    const stickyHeader = document.getElementById('sticky-search-header');
+                    const offset = stickyHeader ? stickyHeader.offsetHeight + 100 : 120;// adjust this value if needed
+                    const topPosition = resultsSection.getBoundingClientRect().top + window.pageYOffset - offset;
+
+                    window.scrollTo({
+                        top: topPosition,
+                        behavior: 'smooth'
+                    });
                 }, 150);
             }
         }

@@ -9,13 +9,25 @@ body {
         radial-gradient(at 100% 0%, rgba(56, 189, 248, 0.12) 0px, transparent 50%),
         radial-gradient(at 100% 100%, rgba(49, 118, 177, 0.12) 0px, transparent 50%),
         radial-gradient(at 0% 100%, rgba(56, 189, 248, 0.12) 0px, transparent 50%);
-    background-attachment: fixed;
+    background-attachment: scroll;
     /* Parallax-like effect */
 }
 
 /* Smooth scrolling */
 html {
     scroll-behavior: smooth;
+}
+
+/* Prevent sections from being hidden under the sticky header */
+html {
+    scroll-padding-top: 120px;
+    /* adjust if your header is taller/shorter */
+}
+
+/* When we scroll to results, keep space for the header */
+#results-section {
+    scroll-margin-top: 120px;
+    /* same value as above */
 }
 
 /* Glassmorphism Utilities */
