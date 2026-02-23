@@ -63,7 +63,8 @@ const setupFloatingCall = () => {
         callBtn = document.createElement('a');
         callBtn.id = 'floating-call-btn';
         callBtn.href = `tel:+94775485445`;
-        callBtn.className = "fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[100] bg-primary text-white p-3.5 md:p-4 rounded-full shadow-2xl hover:scale-110 transition-all duration-500 flex items-center justify-center animate-bounce-slow opacity-100 transform translate-y-0";
+        callBtn.setAttribute('aria-label', 'Call Us Now');
+        callBtn.className = "fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[100] bg-primary text-white p-3.5 md:p-4 rounded-full shadow-2xl hover:scale-110 transition duration-500 flex items-center justify-center animate-bounce-slow opacity-100 transform translate-y-0";
         callBtn.innerHTML = `<i data-lucide="phone" class="w-6 h-6"></i>`;
         document.body.appendChild(callBtn);
         if (window.lucide) window.lucide.createIcons();
@@ -245,15 +246,15 @@ window.switchCategory = (category) => {
     const tabLand = document.getElementById('tab-lands');
 
     if (category === 'house') {
-        if (tabHouse) tabHouse.className = "px-6 py-2 rounded-lg text-sm font-bold transition-all bg-primary text-white shadow-md";
-        if (tabLand) tabLand.className = "px-6 py-2 rounded-lg text-sm font-bold transition-all text-gray-500 hover:text-gray-700";
+        if (tabHouse) tabHouse.className = "px-6 py-2 rounded-lg text-sm font-bold transition bg-primary text-white shadow-md";
+        if (tabLand) tabLand.className = "px-6 py-2 rounded-lg text-sm font-bold transition text-gray-500 hover:text-gray-700";
         const houseF = document.getElementById('house-filters');
         const landF = document.getElementById('land-filters');
         if (houseF) houseF.classList.remove('hidden');
         if (landF) landF.classList.add('hidden');
     } else {
-        if (tabLand) tabLand.className = "px-6 py-2 rounded-lg text-sm font-bold transition-all bg-primary text-white shadow-md";
-        if (tabHouse) tabHouse.className = "px-6 py-2 rounded-lg text-sm font-bold transition-all text-gray-500 hover:text-gray-700";
+        if (tabLand) tabLand.className = "px-6 py-2 rounded-lg text-sm font-bold transition bg-primary text-white shadow-md";
+        if (tabHouse) tabHouse.className = "px-6 py-2 rounded-lg text-sm font-bold transition text-gray-500 hover:text-gray-700";
         const houseF = document.getElementById('house-filters');
         const landF = document.getElementById('land-filters');
         if (landF) landF.classList.remove('hidden');
@@ -592,9 +593,11 @@ const setupFilters = () => {
         }
 
         // --- UI Feedback: Active Tab Styles ---
+        const tabHouse = document.getElementById('tab-houses');
+        const tabLand = document.getElementById('tab-lands');
         if (tabHouse && tabLand) {
-            const activeClass = "px-6 py-2 rounded-lg text-sm font-bold transition-all bg-primary text-white shadow-md";
-            const inactiveClass = "px-6 py-2 rounded-lg text-sm font-bold transition-all text-gray-500 hover:text-gray-700";
+            const activeClass = "px-6 py-2 rounded-lg text-sm font-bold transition bg-primary text-white shadow-md";
+            const inactiveClass = "px-6 py-2 rounded-lg text-sm font-bold transition text-gray-500 hover:text-gray-700";
             tabHouse.className = currentCategory === 'house' ? activeClass : inactiveClass;
             tabLand.className = currentCategory === 'land' ? activeClass : inactiveClass;
         }

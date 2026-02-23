@@ -33,6 +33,11 @@ html {
     /* same value as above */
 }
 
+/* Reserve min-height for navbar so insertion doesn't shift the page (fixes CLS) */
+#navbar-container {
+    min-height: 80px;
+}
+
 /* Glassmorphism Utilities */
 .glass-panel {
     background: rgba(255, 255, 255, 0.4);
@@ -146,8 +151,10 @@ select.glass-input {
     }
 }
 
+/* Promote animated elements to their own GPU layer for smooth composited rendering */
 .animate-bounce-slow {
     animation: bounce-slow 3s infinite ease-in-out;
+    will-change: transform;
 }
 
 input[type=range] {
@@ -353,6 +360,7 @@ input[type=range]::-moz-range-thumb {
 
 .animate-blob {
     animation: blob 7s infinite;
+    will-change: transform;
 }
 
 #main-image {

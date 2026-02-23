@@ -4,7 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Contact Elite Estates to inquire about properties for sale or rent in Sri Lanka. Reach us via WhatsApp or email.">
     <title>Contact Us - Elite Estates</title>
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://unpkg.com">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -19,11 +25,15 @@
             }
         }
     </script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script defer src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="css/styles.css">
 
     <!-- AOS Animation -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="public/images/favicon.png">
@@ -43,7 +53,7 @@
 
             <!-- Info Card -->
             <div class="glass-panel rounded-3xl shadow-xl p-8" data-aos="fade-right">
-                <h3 class="text-xl font-bold text-gray-900 mb-6">Contact Information</h3>
+                <h2 class="text-xl font-bold text-gray-900 mb-6">Contact Information</h2>
 
                 <div class="space-y-6">
                     <div class="flex items-start">
@@ -90,12 +100,12 @@
             <div class="glass-panel rounded-3xl shadow-xl p-8" data-aos="fade-left" data-aos-delay="200">
                 <div class="flex bg-gray-100/50 p-1 rounded-xl mb-8">
                     <button id="tab-whatsapp" onclick="switchContact('whatsapp')"
-                        class="flex-1 py-3 rounded-lg text-sm font-bold transition-all bg-primary text-white shadow-md flex items-center justify-center">
+                        class="flex-1 py-3 rounded-lg text-sm font-bold transition bg-primary text-white shadow-md flex items-center justify-center">
                         <i data-lucide="message-circle" class="w-4 h-4 mr-2"></i>
                         WhatsApp
                     </button>
                     <button id="tab-email" onclick="switchContact('email')"
-                        class="flex-1 py-3 rounded-lg text-sm font-bold transition-all text-gray-500 hover:text-gray-700 flex items-center justify-center">
+                        class="flex-1 py-3 rounded-lg text-sm font-bold transition text-gray-500 hover:text-gray-700 flex items-center justify-center">
                         <i data-lucide="mail" class="w-4 h-4 mr-2"></i>
                         Email
                     </button>
@@ -116,7 +126,7 @@
                             class="glass-input mt-1 block w-full"></textarea>
                     </div>
                     <button type="submit"
-                        class="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-4 rounded-lg shadow-lg transition-all flex items-center justify-center">
+                        class="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-4 rounded-lg shadow-lg transition flex items-center justify-center">
                         <i data-lucide="send" class="w-5 h-5 mr-2"></i>
                         Send via WhatsApp
                     </button>
@@ -142,7 +152,7 @@
                             class="glass-input mt-1 block w-full"></textarea>
                     </div>
                     <button type="submit"
-                        class="w-full bg-primary hover:bg-secondary text-white font-bold py-4 rounded-lg shadow-lg transition-all flex items-center justify-center">
+                        class="w-full bg-primary hover:bg-secondary text-white font-bold py-4 rounded-lg shadow-lg transition flex items-center justify-center">
                         <i data-lucide="mail-plus" class="w-5 h-5 mr-2"></i>
                         Send via Email
                     </button>
@@ -154,15 +164,15 @@
 
     <div id="footer-container"></div>
 
-    <script src="js/config.js"></script>
-    <script src="js/utils.js"></script>
-    <script src="js/components.js"></script>
-    <script src="js/app.js"></script>
+    <script defer src="js/config.js"></script>
+    <script defer src="js/utils.js"></script>
+    <script defer src="js/components.js"></script>
+    <script defer src="js/app.js"></script>
     <!-- AOS Animation JS -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script defer src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            window.initPage();
+            if (typeof window.initPage === 'function') window.initPage();
 
             // Set Contact Info from Config
             if (window.CONFIG) {
@@ -189,13 +199,13 @@
             const formEmail = document.getElementById('form-email');
 
             if (method === 'whatsapp') {
-                btnWA.className = "flex-1 py-3 rounded-lg text-sm font-bold transition-all bg-primary text-white shadow-md flex items-center justify-center";
-                btnEmail.className = "flex-1 py-3 rounded-lg text-sm font-bold transition-all text-gray-500 hover:text-gray-700 flex items-center justify-center";
+                btnWA.className = "flex-1 py-3 rounded-lg text-sm font-bold transition bg-primary text-white shadow-md flex items-center justify-center";
+                btnEmail.className = "flex-1 py-3 rounded-lg text-sm font-bold transition text-gray-500 hover:text-gray-700 flex items-center justify-center";
                 formWA.classList.remove('hidden');
                 formEmail.classList.add('hidden');
             } else {
-                btnEmail.className = "flex-1 py-3 rounded-lg text-sm font-bold transition-all bg-primary text-white shadow-md flex items-center justify-center";
-                btnWA.className = "flex-1 py-3 rounded-lg text-sm font-bold transition-all text-gray-500 hover:text-gray-700 flex items-center justify-center";
+                btnEmail.className = "flex-1 py-3 rounded-lg text-sm font-bold transition bg-primary text-white shadow-md flex items-center justify-center";
+                btnWA.className = "flex-1 py-3 rounded-lg text-sm font-bold transition text-gray-500 hover:text-gray-700 flex items-center justify-center";
                 formEmail.classList.remove('hidden');
                 formWA.classList.add('hidden');
             }

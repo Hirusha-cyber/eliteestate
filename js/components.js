@@ -16,7 +16,7 @@ window.Navbar = () => {
     };
 
     return `
-    <nav class="glass-panel sticky top-4 mx-4 mt-4 rounded-2xl z-50 mb-4 transition-all duration-300">
+    <nav class="glass-panel sticky top-4 mx-4 mt-4 rounded-2xl z-50 mb-4 transition duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-0">
                 <div class="flex items-center">
@@ -121,17 +121,17 @@ window.Footer = () => `
 
 window.FooterCTA = () => `
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 -mb-12 relative z-20">
-        <div class="bg-gradient-to-r from-primary to-secondary rounded-3xl p-10 md:p-16 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-10 transform transition-all duration-500 hover:scale-[1.02]">
+        <div class="bg-gradient-to-r from-primary to-secondary rounded-3xl p-10 md:p-16 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-10 transform transition duration-500 hover:scale-[1.02]">
             <div class="text-center md:text-left">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Ready to find your dream home?</h2>
                 <p class="text-blue-100 text-lg md:text-xl max-w-xl">Our experts are ready to guide you through every step of your property journey in Sri Lanka.</p>
             </div>
             <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
-                <a href="tel:+94775485445" class="flex items-center justify-center bg-white text-primary hover:bg-blue-50 px-8 py-4 rounded-2xl font-bold text-lg shadow-lg transition-all active:scale-95 group">
+                <a href="tel:+94775485445" class="flex items-center justify-center bg-white text-primary hover:bg-blue-50 px-8 py-4 rounded-2xl font-bold text-lg shadow-lg transition active:scale-95 group">
                     <i data-lucide="phone" class="w-6 h-6 mr-3 transition-transform group-hover:rotate-12"></i>
                     Call Us Now
                 </a>
-                <a href="contact.html" class="flex items-center justify-center bg-primary/20 hover:bg-primary/30 text-white border-2 border-white/30 backdrop-blur-sm px-8 py-4 rounded-2xl font-bold text-lg transition-all active:scale-95">
+                <a href="contact.html" class="flex items-center justify-center bg-primary/20 hover:bg-primary/30 text-white border-2 border-white/30 backdrop-blur-sm px-8 py-4 rounded-2xl font-bold text-lg transition active:scale-95">
                     Contact Us
                 </a>
             </div>
@@ -186,9 +186,9 @@ window.PropertyCard = (property, index = 0) => {
         </div>
         <div class="p-6 flex-1 flex flex-col">
             <div class="flex items-start justify-between mb-2">
-                <h3 class="text-lg font-bold text-gray-900 line-clamp-1 group-hover:text-primary transition-colors">
+                <h2 class="text-lg font-bold text-gray-900 line-clamp-1 group-hover:text-primary transition-colors">
                     <a href="${window.getPropertyUrl(property.code)}">${property.title}</a>
-                </h3>
+                </h2>
             </div>
              <div class="flex items-center text-gray-500 text-sm mb-4">
                 <i data-lucide="map-pin" class="w-4 h-4 mr-1"></i>
@@ -234,7 +234,7 @@ window.PropertyCard = (property, index = 0) => {
             </div>
 
             <div class="mt-4 pt-4 border-t border-gray-100">
-                <a href="${window.getPropertyUrl(property.code)}" class="block w-full text-center bg-gray-50 hover:bg-primary hover:text-white text-primary font-medium py-2 rounded-lg transition-colors duration-200">
+                <a href="${window.getPropertyUrl(property.code)}" aria-label="View details for ${property.title}" class="block w-full text-center bg-gray-50 hover:bg-primary hover:text-white text-primary font-medium py-2 rounded-lg transition-colors duration-200">
                     View Details
                 </a>
             </div>
@@ -246,7 +246,7 @@ window.PropertyCard = (property, index = 0) => {
 window.BlogCard = (post, index = 0) => {
     const delay = (index % 12) * 100; // Staggered delay logic
     return `
-    <article class="glass-card rounded-2xl overflow-hidden hover:shadow-card-hover transition-all duration-300 group cursor-pointer" data-aos="fade-up" data-aos-delay="${Math.min(delay, 1200)}" onclick="window.location.href='blog-post.html?id=${post.id}'">
+    <article class="glass-card rounded-2xl overflow-hidden hover:shadow-card-hover transition duration-300 group cursor-pointer" data-aos="fade-up" data-aos-delay="${Math.min(delay, 1200)}" onclick="window.location.href='blog-post.html?id=${post.id}'">
         <div class="relative h-56 overflow-hidden">
             <img src="${post.image}" alt="${post.title}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <div class="absolute top-4 left-4">
@@ -262,9 +262,9 @@ window.BlogCard = (post, index = 0) => {
                 <i data-lucide="clock" class="w-3 h-3 mr-1"></i>
                 <span>${post.readTime}</span>
             </div>
-            <h3 class="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
+            <h2 class="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
                 <a href="blog-post.html?id=${post.id}">${post.title}</a>
-            </h3>
+            </h2>
             <p class="text-gray-600 text-sm leading-relaxed">
                 ${post.excerpt}
             </p>
