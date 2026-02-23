@@ -153,8 +153,8 @@ window.PropertyCard = (property, index = 0) => {
 
     return `
     <div class="glass-card rounded-2xl overflow-hidden flex flex-col h-full group relative" data-aos="fade-up" data-aos-delay="${Math.min(delay, 1200)}">
-        <div class="relative h-64 overflow-hidden">
-            <img src="${mainImage}" alt="${property.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        <div class="relative h-64 overflow-hidden bg-gray-100">
+            <img src="${mainImage}" alt="${property.title}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <div class="absolute top-4 left-4">
                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusColor} capitalize shadow-sm">
                     ${property.status}
@@ -239,7 +239,7 @@ window.BlogCard = (post, index = 0) => {
     return `
     <article class="glass-card rounded-2xl overflow-hidden hover:shadow-card-hover transition-all duration-300 group cursor-pointer" data-aos="fade-up" data-aos-delay="${Math.min(delay, 1200)}" onclick="window.location.href='blog-post.html?id=${post.id}'">
         <div class="relative h-56 overflow-hidden">
-            <img src="${post.image}" alt="${post.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <img src="${post.image}" alt="${post.title}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <div class="absolute top-4 left-4">
                 <span class="px-3 py-1 bg-white/90 backdrop-blur-sm text-primary text-xs font-bold rounded-full shadow-sm">${post.category}</span>
             </div>
