@@ -205,16 +205,6 @@ input[type=range]::-moz-range-thumb {
     z-index: 10;
 }
 
-/* Sticky Header Animation */
-.sticky-search-header {
-    transform: translateY(-100%);
-    transition: transform 0.3s ease-in-out;
-}
-
-.sticky-search-header.visible {
-    transform: translateY(0);
-}
-
 /* Custom Glassy Dropdown System */
 .custom-select-container {
     position: relative;

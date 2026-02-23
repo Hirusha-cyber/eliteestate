@@ -41,12 +41,12 @@
 
     <!-- Sticky Search Header (Hidden initially) -->
     <div id="sticky-search-header"
-        class="fixed top-4 left-4 right-4 z-[60] glass-panel rounded-full py-2 px-4 sticky-search-header hidden md:flex justify-between items-center transition-all duration-500 transform translate-y-[-150%]">
-        <div class="max-w-7xl mx-auto w-full flex items-center justify-between gap-4">
+        class="fixed top-4 left-4 right-4 z-[60] glass-panel rounded-full py-2 px-4 sticky-search-header flex justify-between items-center transition-all duration-500 transform translate-y-[-150%]">
+        <div class="max-w-7xl mx-auto w-full flex items-center justify-between gap-2 md:gap-4">
 
-            <!-- Logo (Always Visible) -->
-            <a href="index.html" class="flex-shrink-0 flex items-center mr-4">
-                <img src="public/images/logo.png" alt="Elite Estates" class="h-10 w-auto">
+            <!-- Logo (Always Visible on Desktop, Hidden on very small screens to save space) -->
+            <a href="index.html" class="flex-shrink-0 hidden sm:flex items-center mr-2 md:mr-4">
+                <img src="public/images/logo.png" alt="Elite Estates" class="h-8 md:h-10 w-auto">
             </a>
 
             <!-- Mode 1: Search Container (Default) -->
@@ -54,28 +54,26 @@
                 class="flex-1 max-w-2xl flex items-center gap-2 transition-all duration-300">
                 <div class="relative w-full">
                     <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4"></i>
-                    <input type="text" id="sticky-search-input" placeholder="Search property code, location..."
+                    <input type="text" id="sticky-search-input" placeholder="Search..."
                         class="w-full pl-10 pr-4 py-2 rounded-full border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm transition-all shadow-inner">
                 </div>
                 <button id="sticky-search-btn"
-                    class="bg-primary hover:bg-secondary text-white px-6 py-2 rounded-full text-sm font-bold transition-all shadow-md active:scale-95">
+                    class="bg-primary hover:bg-secondary text-white px-4 md:px-6 py-2 rounded-full text-sm font-bold transition-all shadow-md active:scale-95">
                     Search
                 </button>
             </div>
 
             <!-- Mode 2: Navigation Menu (Hidden by default) -->
             <div id="sticky-nav-container"
-                class="flex-1 hidden items-center justify-center gap-8 text-sm font-medium text-gray-600 transition-all duration-300">
+                class="flex-1 hidden items-center justify-center gap-4 md:gap-8 text-sm md:text-sm font-medium text-gray-600 transition-all duration-300">
                 <a href="index.html" class="hover:text-primary transition-colors">Home</a>
-                <a href="index.html#listings" class="hover:text-primary transition-colors">Properties</a>
-                <a href="about.html" class="hover:text-primary transition-colors">About Us</a>
+                <a href="about.html" class="hover:text-primary transition-colors hidden md:block">About Us</a>
                 <a href="contact.html" class="hover:text-primary transition-colors">Contact</a>
-                <a href="blog.html" class="hover:text-primary transition-colors">Blog</a>
             </div>
 
             <!-- Switcher Button (Right Side) -->
             <button id="header-switcher-btn"
-                class="ml-4 p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-primary transition-all shadow-sm active:scale-90"
+                class="ml-2 md:ml-4 p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-primary transition-all shadow-sm active:scale-90"
                 title="Toggle Search/Menu">
                 <i data-lucide="align-justify" class="w-5 h-5"></i>
             </button>
@@ -86,7 +84,7 @@
     <div id="navbar-container"></div>
 
     <!-- Hero Section -->
-    <div id="hero-section" class="relative overflow-hidden pt-16 pb-8 transition-all duration-500">
+    <div id="hero-section" class="relative overflow-hidden pt-16 md:pt-8 pb-4 transition-all duration-500">
         <!-- background blob -->
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none opacity-60">
             <div
@@ -101,7 +99,7 @@
         </div>
 
         <div id="hero-inner"
-            class="max-w-7xl mx-auto pt-12 pb-16 md:pt-20 md:pb-24 px-4 sm:px-6 lg:px-8 text-center relative z-10 transition-all duration-300">
+            class="max-w-7xl mx-auto pt-12 pb-8 md:pt-8 md:pb-6 px-4 sm:px-6 lg:px-8 text-center relative z-10 transition-all duration-300">
             <h1 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-6xl mb-8"
                 data-aos="fade-down">
                 <span class="block">Find your dream home</span>
@@ -129,20 +127,22 @@
             </div> <!-- end of glass search wrapper -->
 
             <!-- Scroll Down Hint -->
-            <div id="scroll-indicator" class="mt-12 flex justify-center transition-all duration-300">
-                <button id="scroll-down-btn" class="animate-bounce opacity-70 hover:opacity-100 transition"
+            <div id="scroll-indicator" class="mt-8 flex justify-center transition-all duration-300" data-aos="fade-up"
+                data-aos-delay="400">
+                <a href="#listings" id="scroll-down-btn"
+                    class="animate-bounce opacity-70 hover:opacity-100 transition inline-block p-2"
                     aria-label="Scroll to properties">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-9 h-9 text-primary" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
-                </button>
+                </a>
             </div>
         </div>
     </div>
 
     <!-- Main Content -->
-    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-0 pb-6 w-full">
+    <main id="listings" class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-0 pb-6 w-full">
 
         <!-- Filter Toggle Button (Mobile/Desktop) -->
         <!-- Property Type Selector -->

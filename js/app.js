@@ -362,11 +362,7 @@ const setupFilters = () => {
                 stickyHeader.classList.remove('translate-y-[-150%]');
                 stickyHeader.classList.add('translate-y-0');
 
-                // Logic: "Until you go past the search bar, the header [Nav] should be there."
-                // "As you scroll past the search bar, the search bar should appear."
-
-                // If search bar is scrolled out of view (top < some offset), switch to Search Mode.
-                // Using bottom < 80px (offset for header height) as trigger.
+                // If search bar is scrolled out of view, switch to Search Mode
                 const searchVisibleOffset = 80;
                 const shouldShowSearch = searchRect.bottom < searchVisibleOffset;
 
@@ -379,10 +375,20 @@ const setupFilters = () => {
                 stickyHeader.classList.remove('translate-y-0');
                 stickyHeader.classList.add('translate-y-[-150%]');
 
-                // Reset to Nav mode when hidden, so it's ready for next scroll down
+                // Reset to Nav mode when hidden
                 if (isSearchMode !== false) {
                     isSearchMode = false;
                     updateStickyHeaderState();
+                }
+            }
+
+            // Scroll indicator fade out independent of sticky header
+            const scrollIndicator = document.getElementById('scroll-indicator');
+            if (scrollIndicator) {
+                if (window.scrollY > 20) {
+                    scrollIndicator.classList.add('opacity-0', 'pointer-events-none');
+                } else {
+                    scrollIndicator.classList.remove('opacity-0', 'pointer-events-none');
                 }
             }
         });
@@ -567,13 +573,13 @@ const setupFilters = () => {
 
         // --- Auto Scroll Logic ---
         if (shouldScroll) {
-            const resultsSection = document.getElementById('results-section');
+            const scrollTarget = document.querySelector('main');
             const hasQuery = (mainSearchInput?.value.trim() !== '') || (stickySearchInput?.value.trim() !== '');
-            if (resultsSection && hasQuery) {
+            if (scrollTarget && hasQuery) {
                 setTimeout(() => {
                     const stickyHeader = document.getElementById('sticky-search-header');
-                    const offset = stickyHeader ? stickyHeader.offsetHeight + 100 : 120;// adjust this value if needed
-                    const topPosition = resultsSection.getBoundingClientRect().top + window.pageYOffset - offset;
+                    const offset = stickyHeader ? stickyHeader.offsetHeight + 20 : 80; // adjust this value for better mobile view
+                    const topPosition = scrollTarget.getBoundingClientRect().top + window.pageYOffset - offset;
 
                     window.scrollTo({
                         top: topPosition,
