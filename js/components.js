@@ -21,7 +21,7 @@ window.Navbar = () => {
             <div class="flex justify-between items-center py-0">
                 <div class="flex items-center">
                     <a href="index.html" class="flex-shrink-0 flex items-center">
-                        <img src="public/images/logo.png" alt="Elite Estates" width="192" height="112" class="h-16 md:h-24 w-auto">
+                        <img src="public/images/LOGO.webp" alt="Elite Estates" width="192" height="112" class="h-16 md:h-24 w-auto">
                     </a>
                 </div>
                 <div class="hidden sm:ml-6 sm:flex sm:items-center space-x-8">
@@ -156,8 +156,12 @@ window.PropertyCard = (property, index = 0) => {
         ? 'fetchpriority="high" decoding="sync"'
         : 'loading="lazy" decoding="async"';
 
+    const aosAttributes = index === 0
+        ? ''
+        : `data-aos="fade-up" data-aos-delay="${Math.min(delay, 1200)}"`;
+
     return `
-    <div class="glass-card rounded-2xl overflow-hidden flex flex-col h-full group relative" data-aos="fade-up" data-aos-delay="${Math.min(delay, 1200)}">
+    <div class="glass-card rounded-2xl overflow-hidden flex flex-col h-full group relative" ${aosAttributes}>
         <div class="relative h-64 overflow-hidden bg-gray-100">
             <img src="${mainImage}" alt="${property.title}" ${imageLoadAttributes} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <div class="absolute top-4 left-4">

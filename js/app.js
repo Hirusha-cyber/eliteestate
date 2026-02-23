@@ -573,12 +573,14 @@ const setupFilters = () => {
 
         // --- Auto Scroll Logic ---
         if (shouldScroll) {
-            const scrollTarget = document.querySelector('main');
+            // Target the main container so the "Houses & Apartments / Land" tabs stay perfectly visible
+            const scrollTarget = document.getElementById('listings');
             const hasQuery = (mainSearchInput?.value.trim() !== '') || (stickySearchInput?.value.trim() !== '');
             if (scrollTarget && hasQuery) {
                 setTimeout(() => {
                     const stickyHeader = document.getElementById('sticky-search-header');
-                    const offset = stickyHeader ? stickyHeader.offsetHeight + 20 : 80; // adjust this value for better mobile view
+                    // Calculate precise offset so tabs slide perfectly underneath the glassy header
+                    const offset = stickyHeader ? stickyHeader.offsetHeight + 20 : 75;
                     const topPosition = scrollTarget.getBoundingClientRect().top + window.pageYOffset - offset;
 
                     window.scrollTo({
