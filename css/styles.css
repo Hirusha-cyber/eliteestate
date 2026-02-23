@@ -1,4 +1,7 @@
 /* Custom styles to complement Tailwind CDN */
+* {
+    -webkit-tap-highlight-color: transparent;
+}
 
 /* Global Body Background */
 body {
@@ -86,6 +89,9 @@ html {
         inset 0 1px 1px 0 rgba(255, 255, 255, 0.3),
         0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
     color: #1f2937 !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
 }
 
 .glass-input:focus {
@@ -95,6 +101,15 @@ html {
         0 0 0 4px rgba(49, 118, 177, 0.1),
         0 10px 15px -3px rgba(0, 0, 0, 0.05) !important;
     outline: none !important;
+}
+
+/* Fix iOS Zoom and appearance for all main text inputs */
+input[type="text"],
+input[type="number"],
+input[type="email"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 select.glass-input {
