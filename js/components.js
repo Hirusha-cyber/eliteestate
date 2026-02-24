@@ -169,18 +169,19 @@ window.PropertyCard = (property, index = 0) => {
                     ${property.status}
                 </span>
             </div>
-            <div class="absolute top-4 right-4 flex space-x-2">
+             <div class="absolute top-4 right-4 flex flex-wrap gap-2 justify-end">
                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/90 text-gray-800 capitalize shadow-sm backdrop-blur-sm">
                     ${property.category || 'House'}
                 </span>
                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/90 text-gray-800 capitalize shadow-sm backdrop-blur-sm">
                     ${property.listingType}
                 </span>
+                 ${property.type ? `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 capitalize shadow-sm backdrop-blur-sm">${property.type}</span>` : ''}
                  ${property.condition === 'new' ? '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/90 text-white capitalize shadow-sm backdrop-blur-sm">New</span>' : ''}
             </div>
             <div class="absolute bottom-4 left-4">
                <span class="text-white font-bold text-xl drop-shadow-md">
-                    ${window.formatCurrency(property.price)}
+                    ${window.formatPrice(property)}
                </span>
             </div>
         </div>
@@ -197,10 +198,14 @@ window.PropertyCard = (property, index = 0) => {
             
             <div class="grid grid-cols-3 gap-4 py-4 border-t border-gray-100 mt-auto">
                 ${isLand ? `
-                    <div class="col-span-3 flex items-center justify-center text-gray-600 bg-gray-50 rounded-lg py-2">
-                        <i data-lucide="ruler" class="w-5 h-5 mr-3 text-primary"></i>
-                        <span class="font-bold text-lg text-slate-800">${property.perches || 0}</span>
-                        <span class="ml-2 text-sm text-gray-500 font-medium tracking-wide">Perches</span>
+                    <div class="col-span-3">
+                        <div class="flex items-center justify-between text-gray-600 bg-gray-50 rounded-lg p-3">
+                            <div class="flex items-center">
+                                <i data-lucide="ruler" class="w-5 h-5 mr-3 text-primary"></i>
+                                <span class="text-sm text-gray-500 font-medium">Land Area</span>
+                            </div>
+                            <span class="font-bold text-lg text-slate-800">${property.perches || 0} <span class="text-xs font-normal">Perches</span></span>
+                        </div>
                     </div>
                 ` : `
                     <div class="flex flex-col items-center justify-center text-gray-600">

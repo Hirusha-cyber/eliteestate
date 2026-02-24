@@ -694,6 +694,14 @@ const setupFilters = () => {
 
 window.initPropertyDetails = async () => {
     window.initPage();
+
+    // Ensure properties are loaded
+    if (!window.ALL_PROPERTIES || window.ALL_PROPERTIES.length === 0) {
+        // Retry shortly if not yet available (unlikely with defer but safe)
+        setTimeout(window.initPropertyDetails, 100);
+        return;
+    }
+
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
     if (!code) { showError(); return; }
@@ -713,7 +721,13 @@ const renderPropertyDetails = (property) => {
     const loading = document.getElementById('loading-state');
     const content = document.getElementById('property-content');
     if (loading) loading.classList.add('hidden');
-    if (content) content.classList.remove('hidden');
+    if (content) {
+        content.classList.remove('hidden');
+        content.style.opacity = '0';
+        requestAnimationFrame(() => {
+            content.style.opacity = '1';
+        });
+    }
 
     const breadcrumb = document.getElementById('breadcrumb-code');
     if (breadcrumb) breadcrumb.textContent = property.code;
@@ -725,19 +739,43 @@ const renderPropertyDetails = (property) => {
     if (location) location.textContent = `${property.location.area}, ${property.location.city}`;
 
     const price = document.getElementById('prop-price');
-    if (price) price.textContent = window.formatCurrency(property.price);
+    if (price) price.textContent = window.formatPrice(property);
 
     const code = document.getElementById('prop-code');
     if (code) code.textContent = `Property ID: ${property.code}`;
+
+    const statusEl = document.getElementById('prop-status');
+    if (statusEl) {
+        statusEl.textContent = property.status;
+        if (property.status === 'available') statusEl.classList.add('text-green-800');
+        else if (property.status === 'reserved') statusEl.classList.add('text-yellow-800');
+        else statusEl.classList.add('text-red-800');
+    }
+
+    const typeBadge = document.getElementById('prop-type-badge');
+    if (typeBadge && property.type) {
+        typeBadge.textContent = property.type;
+        typeBadge.classList.remove('hidden');
+    }
 
     // House vs Land Stats Display
     const beds = document.getElementById('prop-beds');
     const baths = document.getElementById('prop-baths');
     const area = document.getElementById('prop-area');
     const landSize = document.getElementById('prop-land');
-    const landContainer = document.getElementById('prop-land-container');
+
+    const bedsCont = document.getElementById('prop-beds-container');
+    const bathsCont = document.getElementById('prop-baths-container');
+    const areaCont = document.getElementById('prop-area-container');
+    const landSizeCont = document.getElementById('prop-land-container');
+    const pricePerchEl = document.getElementById('prop-price-perch');
+    const pricePerchCont = document.getElementById('prop-price-perch-container');
 
     if ((property.category || 'house') === 'house') {
+        if (bedsCont) bedsCont.classList.remove('hidden');
+        if (bathsCont) bathsCont.classList.remove('hidden');
+        if (areaCont) areaCont.classList.remove('hidden');
+
         if (beds) beds.textContent = property.bedrooms || 0;
         if (baths) baths.textContent = property.bathrooms || 0;
         if (area) area.textContent = `${property.areaSize || 0} sqft`;
@@ -745,10 +783,12 @@ const renderPropertyDetails = (property) => {
         // Show land size for houses if available
         if (landSize && property.perches) {
             landSize.textContent = `${property.perches} Perches`;
-            if (landContainer) landContainer.classList.remove('hidden');
-        } else if (landContainer) {
-            landContainer.classList.add('hidden');
+            if (landSizeCont) landSizeCont.classList.remove('hidden');
+        } else if (landSizeCont) {
+            landSizeCont.classList.add('hidden');
         }
+
+        if (pricePerchCont) pricePerchCont.classList.add('hidden');
 
         const conditionEl = document.getElementById('prop-condition');
         const conditionCont = document.getElementById('prop-condition-container');
@@ -759,18 +799,25 @@ const renderPropertyDetails = (property) => {
             conditionCont.classList.add('hidden');
         }
     } else {
-        // For pure land, show perches in the main area slot
-        if (area) {
-            const areaContainer = area.parentElement;
-            if (areaContainer.previousElementSibling) areaContainer.previousElementSibling.textContent = "Total Area";
-            area.textContent = `${property.perches || 0} Perches`;
+        // Pure Land
+        if (bedsCont) bedsCont.classList.add('hidden');
+        if (bathsCont) bathsCont.classList.add('hidden');
+
+        // Use the area slot for land size
+        if (areaCont) {
+            const labelEl = areaCont.querySelector('span');
+            if (labelEl) labelEl.textContent = "Total Area";
+            const iconEl = areaCont.querySelector('i');
+            if (iconEl) iconEl.setAttribute('data-lucide', 'map');
+            if (area) area.textContent = `${property.perches || 0} Perches`;
         }
-        // Hide redundant land container and house-specific fields
-        if (landContainer) landContainer.classList.add('hidden');
+
+        if (pricePerchCont) pricePerchCont.classList.add('hidden');
+
+        // Hide redundant land size block and condition
+        if (landSizeCont) landSizeCont.classList.add('hidden');
         const conditionCont = document.getElementById('prop-condition-container');
         if (conditionCont) conditionCont.classList.add('hidden');
-        if (beds) beds.parentElement.classList.add('hidden');
-        if (baths) baths.parentElement.classList.add('hidden');
     }
 
     const pType = document.getElementById('prop-type');
@@ -778,14 +825,6 @@ const renderPropertyDetails = (property) => {
 
     const pDesc = document.getElementById('prop-description');
     if (pDesc) pDesc.textContent = property.description;
-
-    const statusEl = document.getElementById('prop-status');
-    if (statusEl) {
-        statusEl.textContent = property.status;
-        if (property.status === 'available') statusEl.classList.add('text-green-800');
-        else if (property.status === 'reserved') statusEl.classList.add('text-yellow-800');
-        else statusEl.classList.add('text-red-800');
-    }
 
     const featuresContainer = document.getElementById('prop-features');
     if (featuresContainer) {

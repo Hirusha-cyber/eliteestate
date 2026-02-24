@@ -374,3 +374,23 @@ input[type=range]::-moz-range-thumb {
 .animation-delay-4000 {
     animation-delay: 4s;
 }
+
+/* Skeleton Loading Styles */
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+    border-radius: 0.5rem;
+}
+
+.skeleton-glass {
+    background: linear-gradient(90deg, rgba(255,255,255,0.2) 25%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.2) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+    backdrop-filter: blur(8px);
+}

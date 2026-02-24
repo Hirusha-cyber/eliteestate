@@ -47,7 +47,9 @@ window.ALL_PROPERTIES = [
         "floors": 1,
         "condition": "new",
         "parking": true,
-        "perches": 7.15
+        "perches": 7.15,
+        "type": "residential",
+        "priceUnit": "total"
     },
     {
         "category": "house",
@@ -97,7 +99,9 @@ window.ALL_PROPERTIES = [
         "floors": 1,
         "condition": "used",
         "parking": true,
-        "perches": 20
+        "perches": 20,
+        "type": "residential",
+        "priceUnit": "total"
     },
     {
         "category": "house",
@@ -145,55 +149,55 @@ window.ALL_PROPERTIES = [
         "floors": 1,
         "condition": "used",
         "parking": true,
-        "perches": 10
-    }
-        ,
-{
-    "category": "land",
-    "code": "EL-001",
-    "title": "Prime Land for Sale in Mount Lavinia",
-    "price": 77000000,
-    "currency": "LKR",
-    "location": {
-        "city": "Colombo",
-        "area": "Mount Lavinia",
-        "district": "Colombo"
+        "perches": 10,
+        "type": "residential",
+        "priceUnit": "total"
     },
-    "listingType": "sale",
-    "status": "available",
-    "description": "This prime 15.4 perch land for sale in Mount Lavinia is located on Atthidiya Road, within a highly residential and rapidly developing neighborhood. The property offers an excellent opportunity for building a luxury residence or securing a high-value real estate investment in one of Colombo’s most sought-after suburbs.\n\nStrategically positioned just 1.4 km to Mount Lavinia Junction, the land ensures quick access to Galle Road, supermarkets, schools, banks, and daily conveniences. It is also only 1 km to Ratmalana Airport and approximately 3 km to the sacred Bellanwila Raja Maha Viharaya, adding strong location appeal and long-term value.\n\nThe surrounding area is peaceful, secure, and ideal for residential development. With easy access to main roads and essential amenities, this property is suitable for constructing a modern luxury home, boutique development project, or investment property with excellent future appreciation potential.\n\nThe land comes with clear deeds and a clean legal background, ensuring a smooth and secure transaction. Whether you are looking for residential land in Mount Lavinia or a strategically located investment plot near Ratmalana, this property presents a rare opportunity in a prime location.",
-    "features": [
-        "Clear, Ready-to-Build Land",
-        "Clear Deeds & Clean Legal Title",
-        "High Investment Potential",
-        "Easy Access to Main Roads & Amenities",
-        "Prime Location Advantage",
-        "Road-Facing Property",
-        "Near Ratmalana Airport",
-        "15.4 Perches of Valuable Land",
-        "Highly Residential & Secure Neighborhood"
-    ],
-    "electricity": true,
-    "water": true,
-    "images": [
-        "public/images/EL-001/Land for sale Mount Lavinia full.webp",
-        "public/images/EL-001/Land for sale Mount Lavinia front.webp",
-        "public/images/EL-001/Land for sale Mount Lavinia front 2.webp",
-        "public/images/EL-001/Land for sale Mount Lavinia front 3.webp",
-        "public/images/EL-001/Land for sale Mount Lavinia front 4.webp",
-        "public/images/EL-001/Land for sale Mount Lavinia road.webp",
-        "public/images/EL-001/Land for sale Mount Lavinia inside 1.webp",
-        "public/images/EL-001/Land for sale Mount Lavinia inside 2.webp",
-        "public/images/EL-001/Land for sale Mount Lavinia back side.webp"
-    ],
-    "featured": false,
-    "perches": 15.4
-}
+    {
+        "category": "land",
+        "code": "EL-001",
+        "title": "Prime Land for Sale in Mount Lavinia",
+        "price": 77000000,
+        "currency": "LKR",
+        "location": {
+            "city": "Colombo",
+            "area": "Mount Lavinia",
+            "district": "Colombo"
+        },
+        "listingType": "sale",
+        "status": "available",
+        "description": "This prime 15.4 perch land for sale in Mount Lavinia is located on Atthidiya Road, within a highly residential and rapidly developing neighborhood. The property offers an excellent opportunity for building a luxury residence or securing a high-value real estate investment in one of Colombo’s most sought-after suburbs.\n\nStrategically positioned just 1.4 km to Mount Lavinia Junction, the land ensures quick access to Galle Road, supermarkets, schools, banks, and daily conveniences. It is also only 1 km to Ratmalana Airport and approximately 3 km to the sacred Bellanwila Raja Maha Viharaya, adding strong location appeal and long-term value.\n\nThe surrounding area is peaceful, secure, and ideal for residential development. With easy access to main roads and essential amenities, this property is suitable for constructing a modern luxury home, boutique development project, or investment property with excellent future appreciation potential.\n\nThe land comes with clear deeds and a clean legal background, ensuring a smooth and secure transaction. Whether you are looking for residential land in Mount Lavinia or a strategically located investment plot near Ratmalana, this property presents a rare opportunity in a prime location.",
+        "features": [
+            "Clear, Ready-to-Build Land",
+            "Clear Deeds & Clean Legal Title",
+            "High Investment Potential",
+            "Easy Access to Main Roads & Amenities",
+            "Prime Location Advantage",
+            "Road-Facing Property",
+            "Near Ratmalana Airport",
+            "15.4 Perches of Valuable Land",
+            "Highly Residential & Secure Neighborhood"
+        ],
+        "electricity": true,
+        "water": true,
+        "images": [
+            "public/images/EL-001/Land for sale Mount Lavinia full.webp",
+            "public/images/EL-001/Land for sale Mount Lavinia front.webp",
+            "public/images/EL-001/Land for sale Mount Lavinia front 2.webp",
+            "public/images/EL-001/Land for sale Mount Lavinia front 3.webp",
+            "public/images/EL-001/Land for sale Mount Lavinia front 4.webp",
+            "public/images/EL-001/Land for sale Mount Lavinia road.webp",
+            "public/images/EL-001/Land for sale Mount Lavinia inside 1.webp",
+            "public/images/EL-001/Land for sale Mount Lavinia inside 2.webp",
+            "public/images/EL-001/Land for sale Mount Lavinia back side.webp"
+        ],
+        "featured": false,
+        "perches": 15.4,
+        "type": "residential",
+        "priceUnit": "total"
+    },
+
 ];
-
-
-
-
 
 
 
