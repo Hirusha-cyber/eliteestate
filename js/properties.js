@@ -152,7 +152,7 @@ window.ALL_PROPERTIES = [
     "category": "land",
     "code": "EL-001",
     "title": "Prime Land for Sale in Mount Lavinia",
-    "price": 77000000 per perche,
+    "price": 77000000,
     "currency": "LKR",
     "location": {
         "city": "Colombo",
@@ -190,6 +190,7 @@ window.ALL_PROPERTIES = [
     "perches": 15.4
 }
 ];
+
 
 
 
