@@ -195,15 +195,6 @@ window.ALL_PROPERTIES = [
         "perches": 15.4,
         "type": "residential",
         "priceUnit": "total"
-    },
+    },*/
 
 ];
-
-
-
-
-
-
-
-
-
