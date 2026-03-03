@@ -153,7 +153,7 @@ window.ALL_PROPERTIES = [
         "type": "residential",
         "priceUnit": "total"
     },
-    {
+    /*{
         "category": "land",
         "code": "EL-001",
         "title": "Prime Land for Sale in Mount Lavinia",
@@ -198,6 +198,7 @@ window.ALL_PROPERTIES = [
     },
 
 ];
+
 
 
 
