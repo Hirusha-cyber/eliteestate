@@ -107,7 +107,7 @@ window.ALL_PROPERTIES = [
         "category": "house",
         "code": "EP-003",
         "title": "House for sale in Athurugiriya",
-        "price": 18500000,
+        "price": 16500000,
         "currency": "LKR",
         "location": {
             "city": "Athurugiriya",
